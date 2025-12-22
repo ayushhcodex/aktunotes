@@ -24,7 +24,7 @@ const Header = () => {
             <div className="flex items-center justify-center gap-3">
               <GraduationCap className="w-10 h-10 md:w-14 md:h-14 text-primary-foreground" />
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground tracking-tight">
-                AKTU Notes Hub
+                One Shot Notes
               </h1>
             </div>
             <p className="text-xl md:text-2xl lg:text-3xl font-semibold text-primary-foreground/90">
