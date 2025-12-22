@@ -46,7 +46,7 @@ const Footer = () => {
               📚 AKTU 1st & 3rd Semester Notes Available
             </p>
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} One Shot Notes. All study materials are for educational purposes.
+              © {new Date().getFullYear()} Complete Study Material. All study materials are for educational purposes.
             </p>
           </div>
 

@@ -41,7 +41,7 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>One Shot Notes | AKTU B.Tech 1st & 3rd Semester Study Materials 2025</title>
+        <title>Complete Study Material | AKTU B.Tech 1st & 3rd Semester Study Materials 2025</title>
         <meta
           name="description"
           content="Access free AKTU 1st & 3rd semester B.Tech CSE/IT study materials. Download PDFs for all subjects. Complete notes and resources."
