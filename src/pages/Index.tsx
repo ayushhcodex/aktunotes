@@ -1,19 +1,22 @@
 import { useState, useMemo } from "react";
-import { subjectsData } from "@/config/subjectsData";
+import { semester1Subjects, semester3Subjects, Subject } from "@/config/subjectsData";
 import Header from "@/components/Header";
 import SearchBar from "@/components/SearchBar";
 import SubjectCard from "@/components/SubjectCard";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BookOpen, GraduationCap } from "lucide-react";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeSemester, setActiveSemester] = useState<"3" | "1">("3");
 
-  const filteredSubjects = useMemo(() => {
-    if (!searchQuery.trim()) return subjectsData;
+  const filterSubjects = (subjects: Subject[]) => {
+    if (!searchQuery.trim()) return subjects;
 
     const query = searchQuery.toLowerCase();
-    return subjectsData.filter((subject) => {
+    return subjects.filter((subject) => {
       const matchesSubject =
         subject.name.toLowerCase().includes(query) ||
         subject.code.toLowerCase().includes(query) ||
@@ -28,19 +31,24 @@ const Index = () => {
 
       return matchesSubject || matchesUnit;
     });
-  }, [searchQuery]);
+  };
+
+  const filteredSemester3 = useMemo(() => filterSubjects(semester3Subjects), [searchQuery]);
+  const filteredSemester1 = useMemo(() => filterSubjects(semester1Subjects), [searchQuery]);
+
+  const currentSubjects = activeSemester === "3" ? filteredSemester3 : filteredSemester1;
 
   return (
     <>
       <Helmet>
-        <title>AKTU Notes Hub | 3rd Semester B.Tech Study Materials 2025</title>
+        <title>One Shot Notes | AKTU B.Tech 1st & 3rd Semester Study Materials 2025</title>
         <meta
           name="description"
-          content="Access free AKTU 3rd semester B.Tech CSE/IT study materials. Download PDFs for COA, DSTL, DS, LASER, UHV, Python. Complete notes and resources."
+          content="Access free AKTU 1st & 3rd semester B.Tech CSE/IT study materials. Download PDFs for all subjects. Complete notes and resources."
         />
         <meta
           name="keywords"
-          content="AKTU notes, 3rd semester, B.Tech, CSE, IT, COA, DSTL, DS, Python, study materials, PDF notes"
+          content="AKTU notes, 1st semester, 3rd semester, B.Tech, CSE, IT, COA, DSTL, DS, Python, PPS, study materials, PDF notes"
         />
       </Helmet>
 
@@ -55,35 +63,82 @@ const Index = () => {
             <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
           </section>
 
-          {/* Subjects Grid */}
+          {/* Semester Tabs */}
           <section id="subjects" className="space-y-8">
-            <div className="text-center space-y-2">
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                📚 Your Subjects
-              </h2>
-              <p className="text-muted-foreground">
-                Click on any subject to access study materials
-              </p>
-            </div>
+            <Tabs value={activeSemester} onValueChange={(v) => setActiveSemester(v as "3" | "1")} className="w-full">
+              <div className="flex flex-col items-center space-y-6">
+                <TabsList className="grid w-full max-w-md grid-cols-2 h-14 p-1 bg-muted/50 rounded-2xl">
+                  <TabsTrigger 
+                    value="3" 
+                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300"
+                  >
+                    <GraduationCap className="w-4 h-4" />
+                    <span className="font-semibold">3rd Semester</span>
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="1" 
+                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-lg transition-all duration-300"
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    <span className="font-semibold">1st Semester</span>
+                  </TabsTrigger>
+                </TabsList>
 
-            {filteredSubjects.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredSubjects.map((subject, index) => (
-                  <SubjectCard key={subject.id} subject={subject} index={index} />
-                ))}
+                {/* Semester Info Badge */}
+                <div className="text-center space-y-2">
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+                    📚 {activeSemester === "3" ? "3rd Semester" : "1st Semester"} Subjects
+                  </h2>
+                  <p className="text-muted-foreground">
+                    {activeSemester === "3" 
+                      ? "6 subjects • CSE/IT • B.Tech 2025" 
+                      : "9 subjects • All Branches • B.Tech 2025"}
+                  </p>
+                </div>
               </div>
-            ) : (
-              <div className="text-center py-16 space-y-4 animate-fade-in">
-                <div className="text-6xl">🔍</div>
-                <h3 className="text-xl font-semibold text-foreground">
-                  No subjects found
-                </h3>
-                <p className="text-muted-foreground max-w-md mx-auto">
-                  Try searching with different keywords like subject name, code, or
-                  unit topic.
-                </p>
-              </div>
-            )}
+
+              <TabsContent value="3" className="mt-8 animate-fade-in">
+                {filteredSemester3.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredSemester3.map((subject, index) => (
+                      <SubjectCard key={subject.id} subject={subject} index={index} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-16 space-y-4 animate-fade-in">
+                    <div className="text-6xl">🔍</div>
+                    <h3 className="text-xl font-semibold text-foreground">
+                      No subjects found
+                    </h3>
+                    <p className="text-muted-foreground max-w-md mx-auto">
+                      Try searching with different keywords like subject name, code, or
+                      unit topic.
+                    </p>
+                  </div>
+                )}
+              </TabsContent>
+
+              <TabsContent value="1" className="mt-8 animate-fade-in">
+                {filteredSemester1.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredSemester1.map((subject, index) => (
+                      <SubjectCard key={subject.id} subject={subject} index={index} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-16 space-y-4 animate-fade-in">
+                    <div className="text-6xl">🔍</div>
+                    <h3 className="text-xl font-semibold text-foreground">
+                      No subjects found
+                    </h3>
+                    <p className="text-muted-foreground max-w-md mx-auto">
+                      Try searching with different keywords like subject name, code, or
+                      unit topic.
+                    </p>
+                  </div>
+                )}
+              </TabsContent>
+            </Tabs>
           </section>
 
           {/* Info Section */}

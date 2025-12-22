@@ -28,31 +28,31 @@ const Header = () => {
               </h1>
             </div>
             <p className="text-xl md:text-2xl lg:text-3xl font-semibold text-primary-foreground/90">
-              3rd Semester – 2025
+              AKTU B.Tech Notes – 2025
             </p>
           </div>
           
           {/* Description */}
           <p className="max-w-2xl text-primary-foreground/80 text-base md:text-lg animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            Access all your B.Tech CSE/IT study materials in one place. 
+            Access all your B.Tech study materials in one place. 
             Download PDFs, access Google Drive folders, and ace your exams!
           </p>
           
           {/* Stats */}
           <div className="flex flex-wrap justify-center gap-6 md:gap-10 pt-4 animate-fade-in" style={{ animationDelay: "0.4s" }}>
             <div className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">6</p>
+              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">2</p>
+              <p className="text-sm text-primary-foreground/70">Semesters</p>
+            </div>
+            <div className="w-px h-12 bg-primary-foreground/20" />
+            <div className="text-center">
+              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">15</p>
               <p className="text-sm text-primary-foreground/70">Subjects</p>
             </div>
             <div className="w-px h-12 bg-primary-foreground/20" />
             <div className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">30</p>
+              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">75</p>
               <p className="text-sm text-primary-foreground/70">Units</p>
-            </div>
-            <div className="w-px h-12 bg-primary-foreground/20" />
-            <div className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">∞</p>
-              <p className="text-sm text-primary-foreground/70">Resources</p>
             </div>
           </div>
         </div>

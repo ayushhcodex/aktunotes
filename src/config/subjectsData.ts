@@ -31,9 +31,11 @@ export interface Subject {
   colorClass: string;
   gradientClass: string;
   units: Unit[];
+  semester: 1 | 3;
 }
 
-export const subjectsData: Subject[] = [
+// 3rd Semester Subjects
+export const semester3Subjects: Subject[] = [
   {
     id: "coa",
     code: "COA",
@@ -44,6 +46,7 @@ export const subjectsData: Subject[] = [
     icon: "Cpu",
     colorClass: "subject-coa",
     gradientClass: "from-sky-100 to-sky-50",
+    semester: 3,
     units: [
       { id: 1, name: "Unit I", title: "Basic Computer Organization", pdfLink: null },
       { id: 2, name: "Unit II", title: "Central Processing Unit", pdfLink: null },
@@ -62,6 +65,7 @@ export const subjectsData: Subject[] = [
     icon: "Binary",
     colorClass: "subject-dstl",
     gradientClass: "from-purple-100 to-purple-50",
+    semester: 3,
     units: [
       { id: 1, name: "Unit I", title: "Set Theory & Relations", pdfLink: null },
       { id: 2, name: "Unit II", title: "Functions & Recurrence", pdfLink: null },
@@ -80,6 +84,7 @@ export const subjectsData: Subject[] = [
     icon: "Network",
     colorClass: "subject-ds",
     gradientClass: "from-emerald-100 to-emerald-50",
+    semester: 3,
     units: [
       { id: 1, name: "Unit I", title: "Arrays & Linked Lists", pdfLink: null },
       { id: 2, name: "Unit II", title: "Stacks & Queues", pdfLink: null },
@@ -98,6 +103,7 @@ export const subjectsData: Subject[] = [
     icon: "Lightbulb",
     colorClass: "subject-laser",
     gradientClass: "from-pink-100 to-pink-50",
+    semester: 3,
     units: [
       { id: 1, name: "Unit I", title: "Laser Fundamentals", pdfLink: null },
       { id: 2, name: "Unit II", title: "Types of Lasers", pdfLink: null },
@@ -116,6 +122,7 @@ export const subjectsData: Subject[] = [
     icon: "Heart",
     colorClass: "subject-uhv",
     gradientClass: "from-amber-100 to-amber-50",
+    semester: 3,
     units: [
       { id: 1, name: "Unit I", title: "Course Introduction", pdfLink: null },
       { id: 2, name: "Unit II", title: "Harmony in Human Being", pdfLink: null },
@@ -134,6 +141,7 @@ export const subjectsData: Subject[] = [
     icon: "Code",
     colorClass: "subject-python",
     gradientClass: "from-blue-100 to-blue-50",
+    semester: 3,
     units: [
       { id: 1, name: "Unit I", title: "Python Basics", pdfLink: null },
       { id: 2, name: "Unit II", title: "Control Structures", pdfLink: null },
@@ -143,3 +151,181 @@ export const subjectsData: Subject[] = [
     ],
   },
 ];
+
+// 1st Semester Subjects
+export const semester1Subjects: Subject[] = [
+  {
+    id: "eng-chemistry",
+    code: "CHEM",
+    name: "Engineering Chemistry",
+    fullName: "Engineering Chemistry",
+    description: "Fundamentals of chemistry for engineering applications",
+    driveLink: "",
+    icon: "FlaskConical",
+    colorClass: "subject-coa",
+    gradientClass: "from-cyan-100 to-cyan-50",
+    semester: 1,
+    units: [
+      { id: 1, name: "Unit I", title: "Atomic & Molecular Structure", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Spectroscopic Techniques", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Electrochemistry", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Corrosion & Its Prevention", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Water Treatment", pdfLink: null },
+    ],
+  },
+  {
+    id: "eng-mechanics",
+    code: "MECH",
+    name: "Engineering Mechanics",
+    fullName: "Engineering Mechanics",
+    description: "Study of forces, motion, and equilibrium",
+    driveLink: "",
+    icon: "Cog",
+    colorClass: "subject-ds",
+    gradientClass: "from-slate-100 to-slate-50",
+    semester: 1,
+    units: [
+      { id: 1, name: "Unit I", title: "Force Systems", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Equilibrium", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Friction", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Kinematics", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Kinetics", pdfLink: null },
+    ],
+  },
+  {
+    id: "basic-electronics",
+    code: "BEC",
+    name: "Basic Electronics",
+    fullName: "Basic Electronics Engineering",
+    description: "Introduction to electronic components and circuits",
+    driveLink: "",
+    icon: "CircuitBoard",
+    colorClass: "subject-laser",
+    gradientClass: "from-rose-100 to-rose-50",
+    semester: 1,
+    units: [
+      { id: 1, name: "Unit I", title: "Semiconductor Devices", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Diode Applications", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Transistors", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Amplifiers", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Digital Electronics", pdfLink: null },
+    ],
+  },
+  {
+    id: "math-1",
+    code: "MATH-I",
+    name: "Mathematics–I",
+    fullName: "Engineering Mathematics–I",
+    description: "Calculus, matrices, and differential equations",
+    driveLink: "",
+    icon: "Calculator",
+    colorClass: "subject-dstl",
+    gradientClass: "from-indigo-100 to-indigo-50",
+    semester: 1,
+    units: [
+      { id: 1, name: "Unit I", title: "Matrices & Linear Algebra", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Differential Calculus", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Integral Calculus", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Differential Equations", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Vector Calculus", pdfLink: null },
+    ],
+  },
+  {
+    id: "pps",
+    code: "PPS",
+    name: "PPS",
+    fullName: "Programming for Problem Solving",
+    description: "Learn C programming and problem-solving techniques",
+    driveLink: "",
+    icon: "Code2",
+    colorClass: "subject-python",
+    gradientClass: "from-green-100 to-green-50",
+    semester: 1,
+    units: [
+      { id: 1, name: "Unit I", title: "Introduction to Programming", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Control Statements", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Arrays & Strings", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Functions & Pointers", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Structures & File Handling", pdfLink: null },
+    ],
+  },
+  {
+    id: "evs",
+    code: "EVS",
+    name: "EVS",
+    fullName: "Environmental Studies",
+    description: "Study of environment and sustainable development",
+    driveLink: "",
+    icon: "Leaf",
+    colorClass: "subject-uhv",
+    gradientClass: "from-lime-100 to-lime-50",
+    semester: 1,
+    units: [
+      { id: 1, name: "Unit I", title: "Environment & Ecosystem", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Natural Resources", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Biodiversity", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Environmental Pollution", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Sustainable Development", pdfLink: null },
+    ],
+  },
+  {
+    id: "soft-skills",
+    code: "SS",
+    name: "Soft Skills",
+    fullName: "Soft Skills",
+    description: "Develop communication and interpersonal skills",
+    driveLink: "",
+    icon: "Users",
+    colorClass: "subject-coa",
+    gradientClass: "from-violet-100 to-violet-50",
+    semester: 1,
+    units: [
+      { id: 1, name: "Unit I", title: "Communication Skills", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Presentation Skills", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Group Discussion", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Interview Preparation", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Professional Ethics", pdfLink: null },
+    ],
+  },
+  {
+    id: "eng-physics",
+    code: "PHY",
+    name: "Engineering Physics",
+    fullName: "Engineering Physics",
+    description: "Fundamentals of physics for engineering applications",
+    driveLink: "",
+    icon: "Atom",
+    colorClass: "subject-laser",
+    gradientClass: "from-orange-100 to-orange-50",
+    semester: 1,
+    units: [
+      { id: 1, name: "Unit I", title: "Optics & Lasers", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Wave Mechanics", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Quantum Mechanics", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Semiconductor Physics", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Nanotechnology", pdfLink: null },
+    ],
+  },
+  {
+    id: "electrical-eng",
+    code: "EE",
+    name: "Electrical Engineering",
+    fullName: "Electrical Engineering",
+    description: "Basics of electrical circuits and machines",
+    driveLink: "",
+    icon: "Zap",
+    colorClass: "subject-ds",
+    gradientClass: "from-yellow-100 to-yellow-50",
+    semester: 1,
+    units: [
+      { id: 1, name: "Unit I", title: "DC Circuits", pdfLink: null },
+      { id: 2, name: "Unit II", title: "AC Circuits", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Transformers", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Electrical Machines", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Electrical Installations", pdfLink: null },
+    ],
+  },
+];
+
+// Combined data (for backward compatibility)
+export const subjectsData: Subject[] = [...semester3Subjects, ...semester1Subjects];
