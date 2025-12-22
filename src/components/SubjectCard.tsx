@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { FolderOpen, BookOpen, ChevronDown, ExternalLink, Cpu, Binary, Network, Lightbulb, Heart, Code } from "lucide-react";
+import { 
+  FolderOpen, BookOpen, ChevronDown, ExternalLink, 
+  Cpu, Binary, Network, Lightbulb, Heart, Code,
+  FlaskConical, Cog, CircuitBoard, Calculator, Code2,
+  Leaf, Users, Atom, Zap
+} from "lucide-react";
 import { Subject } from "@/config/subjectsData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -17,6 +22,15 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Lightbulb,
   Heart,
   Code,
+  FlaskConical,
+  Cog,
+  CircuitBoard,
+  Calculator,
+  Code2,
+  Leaf,
+  Users,
+  Atom,
+  Zap,
 };
 
 const SubjectCard = ({ subject, index }: SubjectCardProps) => {
@@ -24,8 +38,12 @@ const SubjectCard = ({ subject, index }: SubjectCardProps) => {
   const IconComponent = iconMap[subject.icon] || BookOpen;
 
   const handleOpenDrive = () => {
-    window.open(subject.driveLink, "_blank", "noopener,noreferrer");
+    if (subject.driveLink) {
+      window.open(subject.driveLink, "_blank", "noopener,noreferrer");
+    }
   };
+
+  const hasDriveLink = subject.driveLink && subject.driveLink.length > 0;
 
   return (
     <Card
@@ -61,14 +79,15 @@ const SubjectCard = ({ subject, index }: SubjectCardProps) => {
         <div className="flex flex-col sm:flex-row gap-3">
           <Button
             onClick={handleOpenDrive}
-            className="flex-1 gap-2 rounded-xl shadow-button hover:scale-[1.02] transition-all duration-200"
+            disabled={!hasDriveLink}
+            className="flex-1 gap-2 rounded-xl shadow-button hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
-              backgroundColor: `hsl(var(--${subject.colorClass}))`,
+              backgroundColor: hasDriveLink ? `hsl(var(--${subject.colorClass}))` : undefined,
             }}
           >
             <FolderOpen className="w-4 h-4" />
-            Open Drive Folder
-            <ExternalLink className="w-3 h-3 opacity-70" />
+            {hasDriveLink ? "Open Drive Folder" : "Coming Soon"}
+            {hasDriveLink && <ExternalLink className="w-3 h-3 opacity-70" />}
           </Button>
           <Button
             variant="outline"

@@ -40,10 +40,13 @@ const Footer = () => {
             <p className="flex items-center justify-center gap-2 text-foreground font-medium">
               Made with
               <Heart className="w-4 h-4 text-destructive fill-destructive animate-pulse" />
-              for AKTU 3rd Semester Students
+              for AKTU B.Tech Students
+            </p>
+            <p className="text-sm text-muted-foreground font-medium">
+              📚 AKTU 1st & 3rd Semester Notes Available
             </p>
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} AKTU Notes Hub. All study materials are for educational purposes.
+              © {new Date().getFullYear()} One Shot Notes. All study materials are for educational purposes.
             </p>
           </div>
 
