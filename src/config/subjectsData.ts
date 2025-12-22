@@ -293,7 +293,7 @@ export const semester1Subjects: Subject[] = [
     name: "Engineering Physics",
     fullName: "Engineering Physics",
     description: "Fundamentals of physics for engineering applications",
-    driveLink: "",
+    driveLink: "https://drive.google.com/drive/folders/1X09FlsBymd5kUJHM-__NhmZ8Nb_ojS2R",
     icon: "Atom",
     colorClass: "subject-laser",
     gradientClass: "from-orange-100 to-orange-50",
