@@ -255,7 +255,7 @@ export const semester1Subjects: Subject[] = [
     name: "EVS",
     fullName: "Environmental Studies",
     description: "Study of environment and sustainable development",
-    driveLink: "",
+    driveLink: "https://drive.google.com/drive/folders/1frncwgoZ5oqinco0vZPnec4iHsn17tCl",
     icon: "Leaf",
     colorClass: "subject-uhv",
     gradientClass: "from-lime-100 to-lime-50",
