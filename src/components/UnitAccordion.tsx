@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { FileText, Download, ExternalLink, BookOpen, Sparkles, Star, TrendingUp } from "lucide-react";
+import { FileText, Download, ExternalLink, Sparkles, Star, TrendingUp, GraduationCap, Calendar } from "lucide-react";
 import { Unit } from "@/config/subjectsData";
-import { getQuiz, hasQuiz } from "@/config/quizData";
+import { getPYQ, hasPYQ } from "@/config/pyqData";
 import { getImportantTopics, hasImportantTopics } from "@/config/importantTopics";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,7 +10,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import QuizModal from "./QuizModal";
 import AIQuizModal from "./AIQuizModal";
 
 interface UnitAccordionProps {
@@ -30,17 +29,12 @@ const UnitAccordion = ({
   subjectFullName = "",
   semester = 3
 }: UnitAccordionProps) => {
-  const [quizOpen, setQuizOpen] = useState(false);
   const [aiQuizOpen, setAIQuizOpen] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
+  const [expandedPYQ, setExpandedPYQ] = useState<string | null>(null);
 
   const handleDownload = (pdfLink: string) => {
     window.open(pdfLink, "_blank", "noopener,noreferrer");
-  };
-
-  const handleStartQuiz = (unit: Unit) => {
-    setSelectedUnit(unit);
-    setQuizOpen(true);
   };
 
   const handleStartAIQuiz = (unit: Unit) => {
@@ -48,7 +42,10 @@ const UnitAccordion = ({
     setAIQuizOpen(true);
   };
 
-  const quizQuestions = selectedUnit ? getQuiz(subjectId, selectedUnit.id) : [];
+  const togglePYQ = (unitId: number) => {
+    const key = `${subjectId}-${unitId}`;
+    setExpandedPYQ(expandedPYQ === key ? null : key);
+  };
 
   return (
     <>
@@ -56,6 +53,9 @@ const UnitAccordion = ({
         {units.map((unit, index) => {
           const topics = getImportantTopics(subjectId, unit.id);
           const hasTopics = hasImportantTopics(subjectId, unit.id);
+          const pyqQuestions = getPYQ(subjectId, unit.id);
+          const hasPYQData = hasPYQ(subjectId, unit.id);
+          const pyqKey = `${subjectId}-${unit.id}`;
 
           return (
             <AccordionItem
@@ -145,6 +145,104 @@ const UnitAccordion = ({
                     </div>
                   )}
 
+                  {/* 7 Marks PYQ Section */}
+                  {hasPYQData && (
+                    <div 
+                      className="rounded-xl border-2 overflow-hidden"
+                      style={{
+                        borderColor: `hsl(var(--${subjectColor}) / 0.3)`,
+                        backgroundColor: `hsl(var(--${subjectColor}) / 0.03)`,
+                      }}
+                    >
+                      <button
+                        onClick={() => togglePYQ(unit.id)}
+                        className="w-full p-4 flex items-center justify-between hover:bg-background/50 transition-colors"
+                      >
+                        <div className="flex items-center gap-2">
+                          <div
+                            className="w-8 h-8 rounded-lg flex items-center justify-center"
+                            style={{
+                              backgroundColor: `hsl(var(--${subjectColor}) / 0.2)`,
+                            }}
+                          >
+                            <GraduationCap className="w-4 h-4" style={{ color: `hsl(var(--${subjectColor}))` }} />
+                          </div>
+                          <div className="text-left">
+                            <h4 className="font-semibold text-foreground text-sm">7 Marks PYQ (Most Repeated)</h4>
+                            <p className="text-xs text-muted-foreground">Previous year theory questions for AKTU</p>
+                          </div>
+                        </div>
+                        <div
+                          className="px-3 py-1 rounded-full text-xs font-bold"
+                          style={{
+                            backgroundColor: `hsl(var(--${subjectColor}) / 0.15)`,
+                            color: `hsl(var(--${subjectColor}))`,
+                          }}
+                        >
+                          {pyqQuestions.length} Questions
+                        </div>
+                      </button>
+                      
+                      {expandedPYQ === pyqKey && (
+                        <div className="border-t border-border/30 p-4 space-y-3 max-h-96 overflow-y-auto">
+                          {pyqQuestions.map((pyq, idx) => (
+                            <div
+                              key={pyq.id}
+                              className="p-3 rounded-lg border border-border/30 bg-background/50 hover:bg-background transition-colors"
+                            >
+                              <div className="flex items-start gap-3">
+                                <span
+                                  className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
+                                  style={{
+                                    backgroundColor: `hsl(var(--${subjectColor}) / 0.15)`,
+                                    color: `hsl(var(--${subjectColor}))`,
+                                  }}
+                                >
+                                  {idx + 1}
+                                </span>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-sm text-foreground font-medium leading-relaxed">
+                                    {pyq.question}
+                                  </p>
+                                  <div className="flex items-center gap-2 mt-2 flex-wrap">
+                                    <Calendar className="w-3 h-3 text-muted-foreground" />
+                                    <div className="flex flex-wrap gap-1">
+                                      {pyq.years.map((year, yIdx) => (
+                                        <span
+                                          key={yIdx}
+                                          className="px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground"
+                                        >
+                                          {year}
+                                        </span>
+                                      ))}
+                                    </div>
+                                    <span
+                                      className="ml-auto px-2 py-0.5 rounded-full text-xs font-bold"
+                                      style={{
+                                        backgroundColor: pyq.frequency >= 4 
+                                          ? 'hsl(var(--destructive) / 0.15)' 
+                                          : pyq.frequency >= 3 
+                                            ? 'hsl(var(--warning) / 0.15)' 
+                                            : `hsl(var(--${subjectColor}) / 0.15)`,
+                                        color: pyq.frequency >= 4 
+                                          ? 'hsl(var(--destructive))' 
+                                          : pyq.frequency >= 3 
+                                            ? 'hsl(var(--warning))' 
+                                            : `hsl(var(--${subjectColor}))`,
+                                      }}
+                                    >
+                                      {pyq.frequency >= 4 ? '🔥 ' : pyq.frequency >= 3 ? '⭐ ' : ''}{pyq.frequency}x asked
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   {/* AI Quiz Section - Always visible */}
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-3 border-t border-border/30">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -162,43 +260,12 @@ const UnitAccordion = ({
                       AI Quiz
                     </Button>
                   </div>
-
-                  {/* Static Quiz Section - Only if available */}
-                  {hasQuiz(subjectId, unit.id) && (
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-3 border-t border-border/30">
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <BookOpen className="w-4 h-4" />
-                        <span>Static quiz with 10 MCQs</span>
-                      </div>
-                      <Button
-                        onClick={() => handleStartQuiz(unit)}
-                        variant="outline"
-                        className="gap-2 rounded-xl hover:scale-105 transition-transform border-2"
-                        style={{
-                          borderColor: `hsl(var(--${subjectColor}) / 0.5)`,
-                          color: `hsl(var(--${subjectColor}))`,
-                        }}
-                      >
-                        📝 Start Quiz
-                      </Button>
-                    </div>
-                  )}
                 </div>
               </AccordionContent>
             </AccordionItem>
           );
         })}
       </Accordion>
-
-      {/* Static Quiz Modal */}
-      <QuizModal
-        isOpen={quizOpen}
-        onClose={() => setQuizOpen(false)}
-        questions={quizQuestions}
-        unitName={selectedUnit?.name || ""}
-        unitTitle={selectedUnit?.title || ""}
-        subjectColor={subjectColor}
-      />
 
       {/* AI Quiz Modal */}
       <AIQuizModal
