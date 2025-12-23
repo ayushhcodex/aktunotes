@@ -1,4 +1,4 @@
-import { GraduationCap, Calendar, BookOpen } from "lucide-react";
+import { GraduationCap, Calendar, BookOpen, FileText } from "lucide-react";
 import { Subject } from "@/config/subjectsData";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -69,19 +69,19 @@ const PYQDrawer = ({ isOpen, onClose, subject }: PYQDrawerProps) => {
                     </div>
                   </CardHeader>
                   <CardContent className="pt-2 px-4 pb-4">
-                    <Tabs defaultValue="7marks" className="w-full">
+                    <Tabs defaultValue="long" className="w-full">
                       <TabsList className="w-full grid grid-cols-2 h-10">
-                        <TabsTrigger value="7marks" className="gap-1.5 text-xs">
-                          <GraduationCap className="w-3.5 h-3.5" />
-                          7 Marks ({pyq7Marks.length})
+                        <TabsTrigger value="long" className="gap-1.5 text-xs">
+                          <FileText className="w-3.5 h-3.5" />
+                          Long Answer ({pyq7Marks.length})
                         </TabsTrigger>
-                        <TabsTrigger value="2marks" className="gap-1.5 text-xs">
+                        <TabsTrigger value="short" className="gap-1.5 text-xs">
                           <BookOpen className="w-3.5 h-3.5" />
-                          2 Marks ({pyq2Marks.length})
+                          Short Answer ({pyq2Marks.length})
                         </TabsTrigger>
                       </TabsList>
 
-                      <TabsContent value="7marks" className="mt-3 space-y-2">
+                      <TabsContent value="long" className="mt-3 space-y-2">
                         {pyq7Marks.length > 0 ? (
                           pyq7Marks.slice(0, 5).map((pyq, idx) => (
                             <div
@@ -140,7 +140,7 @@ const PYQDrawer = ({ isOpen, onClose, subject }: PYQDrawerProps) => {
                         )}
                       </TabsContent>
 
-                      <TabsContent value="2marks" className="mt-3 space-y-2">
+                      <TabsContent value="short" className="mt-3 space-y-2">
                         {pyq2Marks.length > 0 ? (
                           pyq2Marks.slice(0, 5).map((pyq, idx) => (
                             <div
