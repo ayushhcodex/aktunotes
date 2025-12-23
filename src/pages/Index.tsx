@@ -6,7 +6,7 @@ import SubjectCard from "@/components/SubjectCard";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, GraduationCap } from "lucide-react";
+import { BookOpen, GraduationCap, Sparkles, TrendingUp } from "lucide-react";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,19 +36,17 @@ const Index = () => {
   const filteredSemester3 = useMemo(() => filterSubjects(semester3Subjects), [searchQuery]);
   const filteredSemester1 = useMemo(() => filterSubjects(semester1Subjects), [searchQuery]);
 
-  const currentSubjects = activeSemester === "3" ? filteredSemester3 : filteredSemester1;
-
   return (
     <>
       <Helmet>
-        <title>Complete Study Material | AKTU B.Tech 1st & 3rd Semester Study Materials 2025</title>
+        <title>AKTU B.Tech Study Materials | Notes, PYQ, Quiz for 1st & 2nd Year 2025</title>
         <meta
           name="description"
-          content="Access free AKTU 1st & 3rd semester B.Tech CSE/IT study materials. Download PDFs for all subjects. Complete notes and resources."
+          content="Access free AKTU 1st & 2nd year B.Tech CSE/IT study materials. Download PDF notes, practice AI quizzes, and view previous year questions."
         />
         <meta
           name="keywords"
-          content="AKTU notes, 1st semester, 3rd semester, B.Tech, CSE, IT, COA, DSTL, DS, Python, PPS, study materials, PDF notes"
+          content="AKTU notes, 1st semester, 3rd semester, B.Tech, CSE, IT, COA, DSTL, DS, Python, PPS, study materials, PDF notes, PYQ, quiz"
         />
       </Helmet>
 
@@ -58,6 +56,37 @@ const Index = () => {
 
         {/* Main Content */}
         <main className="container py-12 space-y-12">
+          {/* Features Highlight */}
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-5 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground">AI Quiz</h3>
+                <p className="text-sm text-muted-foreground">Practice with AI-generated MCQs</p>
+              </div>
+            </div>
+            <div className="p-5 rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+                <GraduationCap className="w-6 h-6 text-accent-foreground" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground">Previous Year Questions</h3>
+                <p className="text-sm text-muted-foreground">Most repeated AKTU questions</p>
+              </div>
+            </div>
+            <div className="p-5 rounded-2xl bg-gradient-to-br from-secondary/10 to-secondary/5 border border-secondary/20 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-secondary-foreground" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground">Important Topics</h3>
+                <p className="text-sm text-muted-foreground">Focus on high-priority topics</p>
+              </div>
+            </div>
+          </section>
+
           {/* Search Section */}
           <section>
             <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
@@ -87,7 +116,7 @@ const Index = () => {
                 {/* Semester Info Badge */}
                 <div className="text-center space-y-2">
                   <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                    📚 {activeSemester === "3" ? "2nd Year" : "1st Year"} Subjects
+                    {activeSemester === "3" ? "2nd Year" : "1st Year"} Subjects
                   </h2>
                   <p className="text-muted-foreground">
                     {activeSemester === "3" 
@@ -144,23 +173,23 @@ const Index = () => {
           {/* Info Section */}
           <section className="max-w-3xl mx-auto text-center space-y-6 py-8">
             <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-accent/5 border border-border/50">
-              <h3 className="text-lg font-semibold text-foreground mb-2">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
                 📌 How to Use
               </h3>
-              <ul className="text-sm text-muted-foreground space-y-2">
-                <li>
-                  <strong>Open Drive Folder:</strong> Access all materials for a subject
-                  in one place
-                </li>
-                <li>
-                  <strong>View Units:</strong> Expand to see unit-wise PDFs with
-                  direct download links
-                </li>
-                <li>
-                  <strong>Search:</strong> Quickly find any subject or unit using the
-                  search bar
-                </li>
-              </ul>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-muted-foreground">
+                <div className="p-4 rounded-xl bg-background/50">
+                  <strong className="block text-foreground mb-1">View Notes</strong>
+                  Access Google Drive folder with all PDF materials
+                </div>
+                <div className="p-4 rounded-xl bg-background/50">
+                  <strong className="block text-foreground mb-1">AI Quiz</strong>
+                  Practice with AI-generated MCQs for each unit
+                </div>
+                <div className="p-4 rounded-xl bg-background/50">
+                  <strong className="block text-foreground mb-1">PYQ & Topics</strong>
+                  Focus on most repeated exam questions
+                </div>
+              </div>
             </div>
           </section>
         </main>
