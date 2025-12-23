@@ -3,7 +3,7 @@ import {
   FolderOpen, BookOpen, ExternalLink, 
   Cpu, Binary, Network, Lightbulb, Heart, Code,
   FlaskConical, Cog, CircuitBoard, Calculator, Code2,
-  Leaf, Users, Atom, Zap, Sparkles, GraduationCap, TrendingUp
+  Leaf, Users, Atom, Zap, Sparkles, GraduationCap, TrendingUp, Lock
 } from "lucide-react";
 import { Subject } from "@/config/subjectsData";
 import { Button } from "@/components/ui/button";
@@ -119,11 +119,14 @@ const SubjectCard = ({ subject, index }: SubjectCardProps) => {
             <Button
               variant="outline"
               onClick={() => setPyqOpen(true)}
-              className="flex-col gap-1 h-auto py-3 rounded-xl border-2 hover:scale-[1.02] transition-all duration-200 group/btn"
+              className="flex-col gap-1 h-auto py-3 rounded-xl border-2 hover:scale-[1.02] transition-all duration-200 group/btn relative"
               style={{
                 borderColor: `hsl(var(--${subject.colorClass}) / 0.3)`,
               }}
             >
+              <Lock 
+                className="w-3 h-3 absolute top-1 right-1 text-muted-foreground/60" 
+              />
               <GraduationCap 
                 className="w-5 h-5 transition-colors" 
                 style={{ color: `hsl(var(--${subject.colorClass}))` }}
