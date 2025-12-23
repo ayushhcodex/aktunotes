@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FileText, Download, Clock, ExternalLink, BookOpen } from "lucide-react";
-import { Unit } from "@/config/subjectsData";
+import { FileText, Download, Clock, ExternalLink, BookOpen, Sparkles } from "lucide-react";
+import { Unit, Subject } from "@/config/subjectsData";
 import { getQuiz, hasQuiz } from "@/config/quizData";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,15 +10,27 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import QuizModal from "./QuizModal";
+import AIQuizModal from "./AIQuizModal";
 
 interface UnitAccordionProps {
   units: Unit[];
   subjectColor: string;
   subjectId: string;
+  subjectName?: string;
+  subjectFullName?: string;
+  semester?: 1 | 3;
 }
 
-const UnitAccordion = ({ units, subjectColor, subjectId }: UnitAccordionProps) => {
+const UnitAccordion = ({ 
+  units, 
+  subjectColor, 
+  subjectId, 
+  subjectName = "", 
+  subjectFullName = "",
+  semester = 3
+}: UnitAccordionProps) => {
   const [quizOpen, setQuizOpen] = useState(false);
+  const [aiQuizOpen, setAIQuizOpen] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
 
   const handleDownload = (pdfLink: string) => {
@@ -28,6 +40,11 @@ const UnitAccordion = ({ units, subjectColor, subjectId }: UnitAccordionProps) =
   const handleStartQuiz = (unit: Unit) => {
     setSelectedUnit(unit);
     setQuizOpen(true);
+  };
+
+  const handleStartAIQuiz = (unit: Unit) => {
+    setSelectedUnit(unit);
+    setAIQuizOpen(true);
   };
 
   const quizQuestions = selectedUnit ? getQuiz(subjectId, selectedUnit.id) : [];
@@ -91,12 +108,30 @@ const UnitAccordion = ({ units, subjectColor, subjectId }: UnitAccordionProps) =
                   )}
                 </div>
 
-                {/* Quiz Section */}
+                {/* AI Quiz Section - Always visible */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-3 border-t border-border/30">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Sparkles className="w-4 h-4" />
+                    <span>AI-generated practice quiz (AKTU 2025 syllabus)</span>
+                  </div>
+                  <Button
+                    onClick={() => handleStartAIQuiz(unit)}
+                    className="gap-2 rounded-xl hover:scale-105 transition-transform"
+                    style={{
+                      backgroundColor: `hsl(var(--${subjectColor}))`,
+                    }}
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    AI Quiz
+                  </Button>
+                </div>
+
+                {/* Static Quiz Section - Only if available */}
                 {hasQuiz(subjectId, unit.id) && (
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-3 border-t border-border/30">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <BookOpen className="w-4 h-4" />
-                      <span>Test your knowledge with 10 MCQs</span>
+                      <span>Static quiz with 10 MCQs</span>
                     </div>
                     <Button
                       onClick={() => handleStartQuiz(unit)}
@@ -117,7 +152,7 @@ const UnitAccordion = ({ units, subjectColor, subjectId }: UnitAccordionProps) =
         ))}
       </Accordion>
 
-      {/* Quiz Modal */}
+      {/* Static Quiz Modal */}
       <QuizModal
         isOpen={quizOpen}
         onClose={() => setQuizOpen(false)}
@@ -125,6 +160,20 @@ const UnitAccordion = ({ units, subjectColor, subjectId }: UnitAccordionProps) =
         unitName={selectedUnit?.name || ""}
         unitTitle={selectedUnit?.title || ""}
         subjectColor={subjectColor}
+      />
+
+      {/* AI Quiz Modal */}
+      <AIQuizModal
+        isOpen={aiQuizOpen}
+        onClose={() => setAIQuizOpen(false)}
+        subjectId={subjectId}
+        subjectName={subjectName || subjectId.toUpperCase()}
+        subjectFullName={subjectFullName || subjectId}
+        unitId={selectedUnit?.id || 1}
+        unitName={selectedUnit?.name || ""}
+        unitTitle={selectedUnit?.title || ""}
+        subjectColor={subjectColor}
+        semester={semester}
       />
     </>
   );
