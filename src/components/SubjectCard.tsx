@@ -124,7 +124,14 @@ const SubjectCard = ({ subject, index }: SubjectCardProps) => {
                 Unit-wise Notes ({subject.units.length} Units)
               </h4>
             </div>
-            <UnitAccordion units={subject.units} subjectColor={subject.colorClass} subjectId={subject.id} />
+            <UnitAccordion 
+              units={subject.units} 
+              subjectColor={subject.colorClass} 
+              subjectId={subject.id}
+              subjectName={subject.code}
+              subjectFullName={subject.fullName}
+              semester={subject.semester}
+            />
           </div>
         </div>
       </CardContent>
