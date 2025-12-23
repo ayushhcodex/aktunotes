@@ -11,26 +11,26 @@ const SearchBar = ({ searchQuery, onSearchChange }: SearchBarProps) => {
   return (
     <div className="relative max-w-xl mx-auto animate-fade-in">
       <div className="relative group">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors duration-200" />
         <Input
           type="text"
           placeholder="Search subjects or units..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-12 pr-12 py-6 text-base rounded-2xl border-2 border-border bg-card shadow-card focus:shadow-card-hover focus:border-primary/50 transition-all duration-300"
+          className="pl-12 pr-12 py-6 text-base rounded-2xl border border-border/60 bg-card shadow-card focus:shadow-card-hover focus:border-primary/40 transition-all duration-300 placeholder:text-muted-foreground/60"
         />
         {searchQuery && (
           <Button
             variant="ghost"
             size="icon"
             onClick={() => onSearchChange("")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full hover:bg-muted"
+            className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full hover:bg-muted/80 transition-colors"
           >
             <X className="w-4 h-4" />
           </Button>
         )}
       </div>
-      <p className="text-center text-sm text-muted-foreground mt-3">
+      <p className="text-center text-sm text-muted-foreground/80 mt-3">
         💡 Tip: Search by subject name, code, or unit topic
       </p>
     </div>

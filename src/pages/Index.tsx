@@ -67,20 +67,20 @@ const Index = () => {
           <section id="subjects" className="space-y-8">
             <Tabs value={activeSemester} onValueChange={(v) => setActiveSemester(v as "3" | "1")} className="w-full">
               <div className="flex flex-col items-center space-y-6">
-                <TabsList className="grid w-full max-w-md grid-cols-2 h-14 p-1 bg-muted/50 rounded-2xl">
+                <TabsList className="grid w-full max-w-md grid-cols-2 h-14 p-1.5 bg-muted/60 backdrop-blur-sm rounded-2xl shadow-sm border border-border/50">
                   <TabsTrigger 
                     value="3" 
-                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300"
+                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-button transition-all duration-300 font-semibold"
                   >
                     <GraduationCap className="w-4 h-4" />
-                    <span className="font-semibold">2nd Year</span>
+                    <span>2nd Year</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="1" 
-                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-lg transition-all duration-300"
+                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-button transition-all duration-300 font-semibold"
                   >
                     <BookOpen className="w-4 h-4" />
-                    <span className="font-semibold">1st Year</span>
+                    <span>1st Year</span>
                   </TabsTrigger>
                 </TabsList>
 
@@ -143,22 +143,22 @@ const Index = () => {
 
           {/* Info Section */}
           <section className="max-w-3xl mx-auto text-center space-y-6 py-8">
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-accent/5 border border-border/50">
-              <h3 className="text-lg font-semibold text-foreground mb-2">
-                📌 How to Use
+            <div className="p-8 rounded-2xl bg-card border border-border/60 shadow-card backdrop-blur-sm">
+              <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center justify-center gap-2">
+                <span className="text-xl">📌</span> How to Use
               </h3>
-              <ul className="text-sm text-muted-foreground space-y-2">
-                <li>
-                  <strong>Open Drive Folder:</strong> Access all materials for a subject
-                  in one place
+              <ul className="text-sm text-muted-foreground space-y-3">
+                <li className="flex items-start gap-2 justify-center">
+                  <span className="font-medium text-foreground">Open Drive Folder:</span>
+                  <span>Access all materials for a subject in one place</span>
                 </li>
-                <li>
-                  <strong>View Units:</strong> Expand to see unit-wise PDFs with
-                  direct download links
+                <li className="flex items-start gap-2 justify-center">
+                  <span className="font-medium text-foreground">View Units:</span>
+                  <span>Expand to see unit-wise PDFs with direct download links</span>
                 </li>
-                <li>
-                  <strong>Search:</strong> Quickly find any subject or unit using the
-                  search bar
+                <li className="flex items-start gap-2 justify-center">
+                  <span className="font-medium text-foreground">Search:</span>
+                  <span>Quickly find any subject or unit using the search bar</span>
                 </li>
               </ul>
             </div>

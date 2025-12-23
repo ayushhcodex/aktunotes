@@ -47,19 +47,19 @@ const SubjectCard = ({ subject, index }: SubjectCardProps) => {
 
   return (
     <Card
-      className={`group overflow-hidden border-2 border-border/50 hover:border-border transition-all duration-300 hover:shadow-card-hover animate-slide-up bg-gradient-to-br ${subject.gradientClass}`}
-      style={{ animationDelay: `${index * 0.1}s` }}
+      className={`group overflow-hidden border border-border/60 hover:border-primary/20 transition-all duration-500 ease-out shadow-card hover:shadow-card-hover hover:-translate-y-1 animate-slide-up bg-gradient-to-br ${subject.gradientClass}`}
+      style={{ animationDelay: `${index * 0.08}s`, animationFillMode: 'backwards' }}
     >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
+              className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-button group-hover:scale-105 group-hover:shadow-button-hover transition-all duration-300"
               style={{
-                backgroundColor: `hsl(var(--${subject.colorClass}))`,
+                background: `linear-gradient(135deg, hsl(var(--${subject.colorClass})) 0%, hsl(var(--${subject.colorClass}) / 0.85) 100%)`,
               }}
             >
-              <IconComponent className="w-7 h-7 text-primary-foreground" />
+              <IconComponent className="w-7 h-7 text-primary-foreground drop-shadow-sm" />
             </div>
             <div>
               <h3 className="text-xl font-bold text-foreground">{subject.code}</h3>
@@ -80,9 +80,9 @@ const SubjectCard = ({ subject, index }: SubjectCardProps) => {
           <Button
             onClick={handleOpenDrive}
             disabled={!hasDriveLink}
-            className="flex-1 gap-2 rounded-xl shadow-button hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 gap-2 rounded-xl shadow-button hover:shadow-button-hover hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
             style={{
-              backgroundColor: hasDriveLink ? `hsl(var(--${subject.colorClass}))` : undefined,
+              background: hasDriveLink ? `linear-gradient(135deg, hsl(var(--${subject.colorClass})) 0%, hsl(var(--${subject.colorClass}) / 0.9) 100%)` : undefined,
             }}
           >
             <FolderOpen className="w-4 h-4" />
@@ -92,9 +92,9 @@ const SubjectCard = ({ subject, index }: SubjectCardProps) => {
           <Button
             variant="outline"
             onClick={() => setIsExpanded(!isExpanded)}
-            className="flex-1 gap-2 rounded-xl border-2 hover:scale-[1.02] transition-all duration-200"
+            className="flex-1 gap-2 rounded-xl border hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 bg-card/50 hover:bg-card font-medium"
             style={{
-              borderColor: `hsl(var(--${subject.colorClass}) / 0.3)`,
+              borderColor: `hsl(var(--${subject.colorClass}) / 0.25)`,
               color: `hsl(var(--${subject.colorClass}))`,
             }}
           >
