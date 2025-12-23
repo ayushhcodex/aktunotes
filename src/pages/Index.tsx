@@ -73,21 +73,21 @@ const Index = () => {
                     className="flex items-center gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg transition-all duration-300"
                   >
                     <GraduationCap className="w-4 h-4" />
-                    <span className="font-semibold">3rd Semester</span>
+                    <span className="font-semibold">2nd Year</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="1" 
                     className="flex items-center gap-2 rounded-xl data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-lg transition-all duration-300"
                   >
                     <BookOpen className="w-4 h-4" />
-                    <span className="font-semibold">1st Semester</span>
+                    <span className="font-semibold">1st Year</span>
                   </TabsTrigger>
                 </TabsList>
 
                 {/* Semester Info Badge */}
                 <div className="text-center space-y-2">
                   <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                    📚 {activeSemester === "3" ? "3rd Semester" : "1st Semester"} Subjects
+                    📚 {activeSemester === "3" ? "2nd Year" : "1st Year"} Subjects
                   </h2>
                   <p className="text-muted-foreground">
                     {activeSemester === "3" 
