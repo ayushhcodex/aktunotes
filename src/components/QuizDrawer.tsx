@@ -18,6 +18,7 @@ const QuizDrawer = ({ isOpen, onClose, subject }: QuizDrawerProps) => {
   const handleStartQuiz = (unit: Unit) => {
     setSelectedUnit(unit);
     setAIQuizOpen(true);
+    onClose(); // Close the drawer when a unit is selected
   };
 
   return (
