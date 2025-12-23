@@ -14,6 +14,18 @@ interface QuizRequest {
   numberOfQuestions?: number;
 }
 
+// Function to sanitize JSON string - removes control characters
+function sanitizeJsonString(str: string): string {
+  // Remove control characters except for common ones we'll handle
+  return str
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '') // Remove control chars
+    .replace(/\r\n/g, ' ') // Replace CRLF with space
+    .replace(/\r/g, ' ')   // Replace CR with space
+    .replace(/\n/g, ' ')   // Replace LF with space
+    .replace(/\t/g, ' ')   // Replace tabs with space
+    .replace(/\s+/g, ' '); // Collapse multiple spaces
+}
+
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -30,39 +42,24 @@ serve(async (req) => {
       throw new Error('LOVABLE_API_KEY is not configured');
     }
 
-    const systemPrompt = `You are an expert AKTU (Dr. A.P.J. Abdul Kalam Technical University) exam question generator for B.Tech CSE students. 
-Generate exactly ${numberOfQuestions} multiple choice questions (MCQs) for the given subject and unit based on the AKTU 2025 updated syllabus.
+    const systemPrompt = `You are an AKTU B.Tech exam question generator. Generate exactly ${numberOfQuestions} MCQs for the given topic.
 
-Requirements:
-- Questions should be exam-oriented and cover key concepts from the topic
-- Each question should have exactly 4 options
-- Include a mix of conceptual, application-based, and numerical questions where applicable
-- Questions should range from easy to moderate difficulty suitable for semester exams
-- Provide clear, educational explanations for each answer
+CRITICAL RULES:
+1. Return ONLY valid JSON - no markdown, no code blocks, no extra text
+2. Keep each explanation under 50 words - be concise
+3. Do not use newlines or special characters in any text field
+4. Use simple, clear language
 
-CRITICAL: You must respond ONLY with valid JSON. No markdown, no code blocks, no explanations outside JSON.`;
+Response format:
+{"questions":[{"id":1,"question":"Question text?","options":["A","B","C","D"],"correctAnswer":0,"explanation":"Brief explanation."}]}
 
-    const userPrompt = `Generate ${numberOfQuestions} MCQ questions for:
-- Subject: ${subjectFullName} (${subjectName})
-- ${unitName}: ${unitTitle}
-- Semester: ${semester === 1 ? "1st Year (1st/2nd Semester)" : "2nd Year (3rd Semester)"}
-- University: AKTU (Dr. A.P.J. Abdul Kalam Technical University)
-- Updated Syllabus: 2025
+correctAnswer is the index (0-3) of the correct option.`;
 
-Return the response as a JSON object with this exact structure:
-{
-  "questions": [
-    {
-      "id": 1,
-      "question": "The question text here?",
-      "options": ["Option A", "Option B", "Option C", "Option D"],
-      "correctAnswer": 0,
-      "explanation": "Explanation of why this is correct"
-    }
-  ]
-}
+    const userPrompt = `Generate ${numberOfQuestions} MCQs for AKTU B.Tech ${semester === 1 ? "1st Year" : "2nd Year"}.
+Subject: ${subjectFullName} (${subjectName})
+Topic: ${unitName} - ${unitTitle}
 
-The correctAnswer should be the index (0-3) of the correct option in the options array.`;
+Return only the JSON object with questions array. Keep explanations brief (under 50 words).`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -107,27 +104,47 @@ The correctAnswer should be the index (0-3) of the correct option in the options
       throw new Error("No content received from AI");
     }
 
-    console.log("Raw AI response:", content.substring(0, 500));
+    console.log("Raw AI response length:", content.length);
 
-    // Parse the JSON response - handle potential markdown code blocks
+    // Clean up the content
+    let cleanContent = content.trim();
+    
+    // Remove markdown code blocks if present
+    if (cleanContent.startsWith("```json")) {
+      cleanContent = cleanContent.slice(7);
+    } else if (cleanContent.startsWith("```")) {
+      cleanContent = cleanContent.slice(3);
+    }
+    if (cleanContent.endsWith("```")) {
+      cleanContent = cleanContent.slice(0, -3);
+    }
+    cleanContent = cleanContent.trim();
+
+    // Sanitize the JSON string to remove control characters
+    cleanContent = sanitizeJsonString(cleanContent);
+
+    console.log("Cleaned content preview:", cleanContent.substring(0, 200));
+
+    // Parse the JSON response
     let parsedQuestions;
     try {
-      // Remove potential markdown code blocks
-      let cleanContent = content.trim();
-      if (cleanContent.startsWith("```json")) {
-        cleanContent = cleanContent.slice(7);
-      } else if (cleanContent.startsWith("```")) {
-        cleanContent = cleanContent.slice(3);
-      }
-      if (cleanContent.endsWith("```")) {
-        cleanContent = cleanContent.slice(0, -3);
-      }
-      cleanContent = cleanContent.trim();
-
       parsedQuestions = JSON.parse(cleanContent);
     } catch (parseError) {
-      console.error("JSON parse error:", parseError, "Content:", content);
-      throw new Error("Failed to parse AI response as JSON");
+      console.error("JSON parse error:", parseError);
+      console.error("Content that failed:", cleanContent.substring(0, 1000));
+      
+      // Try to extract just the questions array if the structure is there
+      const questionsMatch = cleanContent.match(/"questions"\s*:\s*\[[\s\S]*\]/);
+      if (questionsMatch) {
+        try {
+          parsedQuestions = JSON.parse(`{${questionsMatch[0]}}`);
+          console.log("Recovered using regex extraction");
+        } catch {
+          throw new Error("Failed to parse AI response as JSON");
+        }
+      } else {
+        throw new Error("Failed to parse AI response as JSON");
+      }
     }
 
     // Validate the response structure
@@ -135,17 +152,17 @@ The correctAnswer should be the index (0-3) of the correct option in the options
       throw new Error("Invalid response structure from AI");
     }
 
-    // Validate each question
-    const validatedQuestions = parsedQuestions.questions.map((q: any, index: number) => ({
+    // Validate and sanitize each question
+    const validatedQuestions = parsedQuestions.questions.slice(0, numberOfQuestions).map((q: any, index: number) => ({
       id: index + 1,
-      question: q.question || `Question ${index + 1}`,
+      question: String(q.question || `Question ${index + 1}`).replace(/[\n\r\t]/g, ' ').trim(),
       options: Array.isArray(q.options) && q.options.length === 4 
-        ? q.options 
+        ? q.options.map((opt: any) => String(opt).replace(/[\n\r\t]/g, ' ').trim())
         : ["Option A", "Option B", "Option C", "Option D"],
       correctAnswer: typeof q.correctAnswer === 'number' && q.correctAnswer >= 0 && q.correctAnswer <= 3 
         ? q.correctAnswer 
         : 0,
-      explanation: q.explanation || "No explanation provided.",
+      explanation: String(q.explanation || "No explanation provided.").replace(/[\n\r\t]/g, ' ').trim().substring(0, 300),
     }));
 
     console.log(`Successfully generated ${validatedQuestions.length} questions`);
