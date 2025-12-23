@@ -4,17 +4,19 @@ const Header = () => {
   return (
     <header className="relative overflow-hidden py-12 md:py-20">
       {/* Animated background gradient */}
-      <div className="absolute inset-0 gradient-hero opacity-90" />
+      <div className="absolute inset-0 gradient-hero" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/10" />
       
-      {/* Decorative elements */}
-      <div className="absolute top-10 left-10 w-20 h-20 bg-primary-foreground/10 rounded-full blur-2xl animate-pulse-slow" />
-      <div className="absolute bottom-10 right-10 w-32 h-32 bg-secondary/20 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-accent/20 rounded-full blur-xl animate-float" />
+      {/* Decorative elements - softer, more refined */}
+      <div className="absolute top-10 left-10 w-24 h-24 bg-primary-foreground/8 rounded-full blur-3xl animate-pulse-slow" />
+      <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/15 rounded-full blur-3xl animate-pulse-slow" />
+      <div className="absolute top-1/2 left-1/4 w-20 h-20 bg-accent/15 rounded-full blur-2xl animate-float" />
+      <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-primary-foreground/5 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }} />
       
       <div className="container relative z-10">
         <div className="flex flex-col items-center text-center space-y-6">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/20 backdrop-blur-sm rounded-full text-primary-foreground text-sm font-medium animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-foreground/15 backdrop-blur-md rounded-full text-primary-foreground text-sm font-medium animate-fade-in border border-primary-foreground/10 shadow-sm">
             <Sparkles className="w-4 h-4" />
             <span>Study Smart, Score High</span>
           </div>
