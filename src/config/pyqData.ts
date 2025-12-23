@@ -472,8 +472,8 @@ export const pyqData: PYQData = {
     ]
   },
 
-  // EC - Engineering Chemistry
-  "ec": {
+  // Engineering Chemistry
+  "eng-chemistry": {
     1: [
       { id: 1, question: "Explain electrochemical series and its applications.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
       { id: 2, question: "Describe different types of electrodes with examples.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
@@ -536,8 +536,8 @@ export const pyqData: PYQData = {
     ]
   },
 
-  // BEE - Basic Electrical Engineering
-  "bee": {
+  // Electrical Engineering (Basic Electrical Engineering)
+  "electrical-eng": {
     1: [
       { id: 1, question: "Explain Kirchhoff's laws and solve circuit problems.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
       { id: 2, question: "Apply superposition theorem to solve given circuit.", years: ["2023", "2022", "2021"], frequency: 3 },
@@ -966,8 +966,8 @@ export const pyq2MarksData: PYQData = {
 
   // ==================== 1ST SEMESTER ====================
   
-  // Math-1
-  "math1": {
+  // Mathematics-I
+  "math-1": {
     1: [
       { id: 1, question: "Define matrix.", years: ["2023", "2022", "2021"], frequency: 3 },
       { id: 2, question: "What is determinant?", years: ["2023", "2022"], frequency: 2 },
@@ -1020,8 +1020,8 @@ export const pyq2MarksData: PYQData = {
     ]
   },
 
-  // Physics
-  "physics": {
+  // Engineering Physics
+  "eng-physics": {
     1: [
       { id: 1, question: "Define interference.", years: ["2023", "2022", "2021"], frequency: 3 },
       { id: 2, question: "What is coherence?", years: ["2023", "2022"], frequency: 2 },
@@ -1074,8 +1074,8 @@ export const pyq2MarksData: PYQData = {
     ]
   },
 
-  // Chemistry
-  "chemistry": {
+  // Engineering Chemistry
+  "eng-chemistry": {
     1: [
       { id: 1, question: "Define spectroscopy.", years: ["2023", "2022", "2021"], frequency: 3 },
       { id: 2, question: "What is absorption spectrum?", years: ["2023", "2022"], frequency: 2 },
