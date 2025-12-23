@@ -1,5 +1,5 @@
 /**
- * AKTU Previous Year Questions (PYQ) - 7 Marks
+ * AKTU Previous Year Questions (PYQ) - 7 Marks & 2 Marks
  * Most repeated theory questions for B.Tech CSE
  * 
  * Structure: pyqData[subjectId][unitId] = PYQQuestion[]
@@ -10,6 +10,7 @@ export interface PYQQuestion {
   question: string;
   years: string[]; // Years when this question was asked
   frequency: number; // How many times asked
+  marks?: 2 | 7; // Question marks (default 7)
 }
 
 export interface PYQData {
@@ -664,10 +665,574 @@ export const pyqData: PYQData = {
   }
 };
 
-export const getPYQ = (subjectId: string, unitId: number): PYQQuestion[] => {
-  return pyqData[subjectId]?.[unitId] || [];
+export const getPYQ = (subjectId: string, unitId: number, marks?: 2 | 7): PYQQuestion[] => {
+  const questions = pyqData[subjectId]?.[unitId] || [];
+  if (marks) {
+    return questions.filter(q => (q.marks || 7) === marks);
+  }
+  return questions;
+};
+
+export const getPYQ7Marks = (subjectId: string, unitId: number): PYQQuestion[] => {
+  return getPYQ(subjectId, unitId).filter(q => !q.marks || q.marks === 7);
+};
+
+export const getPYQ2Marks = (subjectId: string, unitId: number): PYQQuestion[] => {
+  return pyq2MarksData[subjectId]?.[unitId] || [];
 };
 
 export const hasPYQ = (subjectId: string, unitId: number): boolean => {
-  return Boolean(pyqData[subjectId]?.[unitId]?.length);
+  return Boolean(pyqData[subjectId]?.[unitId]?.length) || Boolean(pyq2MarksData[subjectId]?.[unitId]?.length);
+};
+
+export const hasPYQ2Marks = (subjectId: string, unitId: number): boolean => {
+  return Boolean(pyq2MarksData[subjectId]?.[unitId]?.length);
+};
+
+// ==================== 2 MARKS PYQ DATA ====================
+
+export const pyq2MarksData: PYQData = {
+  // ==================== 3RD SEMESTER ====================
+  
+  // COA - Computer Organization & Architecture
+  "coa": {
+    1: [
+      { id: 1, question: "Define computer architecture.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is a bus? Name different types.", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Differentiate between RAM and ROM.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "What is stored program concept?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define register. Name some CPU registers.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is instruction cycle?", years: ["2023", "2022"], frequency: 2 },
+      { id: 7, question: "Define MAR and MDR.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is ALU? State its functions.", years: ["2023", "2019"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define addressing mode.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is RISC?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "What is CISC?", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "Define pipeline.", years: ["2023", "2021", "2020"], frequency: 3 },
+      { id: 5, question: "What is control unit?", years: ["2022", "2020"], frequency: 2 },
+      { id: 6, question: "Define microinstruction.", years: ["2023", "2021"], frequency: 2 },
+      { id: 7, question: "What is pipeline hazard?", years: ["2022", "2020"], frequency: 2 },
+      { id: 8, question: "Define instruction format.", years: ["2023", "2019"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "What is cache memory?", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "Define cache hit and cache miss.", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "What is virtual memory?", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Define page and page table.", years: ["2023", "2021"], frequency: 2 },
+      { id: 5, question: "What is TLB?", years: ["2022", "2020"], frequency: 2 },
+      { id: 6, question: "Define memory interleaving.", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "What is associative mapping?", years: ["2022", "2021"], frequency: 2 },
+      { id: 8, question: "Define SRAM and DRAM.", years: ["2021", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "What is DMA?", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "Define interrupt.", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "What is I/O interface?", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "Define programmed I/O.", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "What is memory-mapped I/O?", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "Define daisy chaining.", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "What is handshaking?", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "Define bus arbitration.", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "What is parallel processing?", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "Define Flynn's classification.", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "What is SIMD?", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "Define MIMD.", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "What is vector processing?", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "Define cache coherence.", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "What is Amdahl's law?", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "Define array processor.", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // DSTL - Discrete Structures
+  "dstl": {
+    1: [
+      { id: 1, question: "Define a relation.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is power set?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define equivalence relation.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "What is Cartesian product?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define reflexive relation.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is symmetric relation?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define transitive closure.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is POSET?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define recurrence relation.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is generating function?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define bijective function.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is injective function?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define surjective function.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is inverse function?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define composition of functions.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is floor function?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define tautology.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is contradiction?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define CNF.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is DNF?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define predicate.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is quantifier?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define logical equivalence.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is rule of inference?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define a group.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is subgroup?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define ring.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is field?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define monoid.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is semigroup?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define homomorphism.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is cyclic group?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Define graph.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is spanning tree?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define chromatic number.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is Euler path?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define Hamiltonian path.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is planar graph?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define bipartite graph.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is degree of a vertex?", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // OS - Operating Systems
+  "os": {
+    1: [
+      { id: 1, question: "Define operating system.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is kernel?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define system call.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is multiprogramming?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define multitasking.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is shell?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define batch processing.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is real-time OS?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define process.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is PCB?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define thread.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is context switching?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define CPU scheduling.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is preemptive scheduling?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define turnaround time.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is waiting time?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define deadlock.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is semaphore?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define critical section.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is mutex?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define race condition.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is starvation?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define safe state.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is resource allocation graph?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define paging.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is page fault?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define segmentation.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is thrashing?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define virtual memory.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is demand paging?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define fragmentation.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is compaction?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Define file system.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is seek time?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define rotational latency.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is RAID?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define directory.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is inode?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define file allocation.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is free space management?", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // DBMS - Database Management Systems
+  "dbms": {
+    1: [
+      { id: 1, question: "Define database.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is DBMS?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define data model.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is schema?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define instance.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is data independence?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define three-schema architecture.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is metadata?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define entity and attribute.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is primary key?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define foreign key.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is candidate key?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define ER diagram.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is weak entity?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define relationship.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is cardinality?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define normalization.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is 1NF?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define 2NF.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is 3NF?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define BCNF.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is functional dependency?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define lossless decomposition.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is closure of attributes?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define transaction.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is ACID property?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define schedule.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is serializability?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define two-phase locking.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is deadlock in DBMS?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define commit and rollback.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is timestamp ordering?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Define SQL.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is DDL?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define DML.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is DCL?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define view.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is trigger?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define index.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is stored procedure?", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // FDS - Fundamentals of Data Structures
+  "fds": {
+    1: [
+      { id: 1, question: "Define data structure.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is time complexity?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define space complexity.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is Big-O notation?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define algorithm.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is abstract data type?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define linear data structure.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is non-linear data structure?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define array.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is linked list?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define stack.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is queue?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define circular queue.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is doubly linked list?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define priority queue.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is deque?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define tree.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is binary tree?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define BST.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is AVL tree?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define height of tree.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is complete binary tree?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define binary heap.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is traversal?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define graph.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is directed graph?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define adjacency matrix.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is BFS?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define DFS.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is spanning tree?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define shortest path.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is topological sort?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Define hashing.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is hash function?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define collision.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is linear probing?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define chaining.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is load factor?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define sorting.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is searching?", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // ==================== 1ST SEMESTER ====================
+  
+  // Math-1
+  "math1": {
+    1: [
+      { id: 1, question: "Define matrix.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is determinant?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define rank of matrix.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is inverse matrix?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define eigenvalue.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is eigenvector?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define orthogonal matrix.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is singular matrix?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define limit.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is continuity?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define partial derivative.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is Taylor's theorem?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define Maclaurin series.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is maxima and minima?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define Jacobian.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is gradient?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define double integral.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is triple integral?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define area using integration.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is volume using integration?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define surface area.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is change of order?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define Beta function.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is Gamma function?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define vector.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is gradient?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define divergence.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is curl?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define line integral.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is surface integral?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define solenoidal vector.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is irrotational vector?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "State Green's theorem.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is Stokes' theorem?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "State Gauss divergence theorem.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "Define conservative field.", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "What is scalar potential?", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "Define work done by force.", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "What is circulation?", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "Define flux.", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // Physics
+  "physics": {
+    1: [
+      { id: 1, question: "Define interference.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is coherence?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define diffraction.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is polarization?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define Newton's rings.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is Michelson interferometer?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define fringe width.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is optical path difference?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define laser.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is population inversion?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define stimulated emission.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is optical fiber?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define numerical aperture.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is total internal reflection?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define acceptance angle.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is attenuation?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define wave function.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is Schrödinger equation?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define de Broglie wavelength.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is Heisenberg uncertainty principle?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define quantum number.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is particle in a box?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define probability density.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is tunneling effect?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define crystal structure.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is unit cell?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define Bravais lattice.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is Miller indices?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define packing fraction.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is coordination number?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define X-ray diffraction.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is Bragg's law?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Define superconductivity.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is Meissner effect?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define semiconductor.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is Fermi energy?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define Hall effect.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is critical temperature?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define band gap.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is intrinsic semiconductor?", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // Chemistry
+  "chemistry": {
+    1: [
+      { id: 1, question: "Define spectroscopy.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is absorption spectrum?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define IR spectroscopy.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is UV-visible spectroscopy?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define chromophore.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is auxochrome?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define fingerprint region.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is Beer-Lambert law?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define polymer.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is polymerization?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define degree of polymerization.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is thermoplastic?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define thermosetting plastic.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is vulcanization?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define biodegradable polymer.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is copolymer?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define corrosion.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is galvanic corrosion?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define electroplating.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is cathodic protection?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define oxidation.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is reduction?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define pitting corrosion.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is sacrificial anode?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define hardness of water.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is temporary hardness?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define permanent hardness.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is ion exchange?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define reverse osmosis.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is desalination?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define BOD.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is COD?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Define fuel.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is calorific value?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define lubricant.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is viscosity?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define flash point.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is fire point?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define octane number.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is cetane number?", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // English
+  "english": {
+    1: [
+      { id: 1, question: "Define active voice.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is passive voice?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define tense.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is subject-verb agreement?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define direct speech.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is indirect speech?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define clause.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is phrase?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define vocabulary.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is synonym?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define antonym.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is homophone?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define idiom.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is one-word substitution?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define prefix.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is suffix?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define paragraph.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is topic sentence?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define précis.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is summary?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define essay.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is coherence?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define cohesion.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is unity in writing?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define formal letter.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is informal letter?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define application.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is resume?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define cover letter.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is memo?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define notice.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is circular?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Define report.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is proposal?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define technical writing.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is abstract?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define executive summary.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is documentation?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define proofreading.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is editing?", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // PPS - Programming for Problem Solving
+  "pps": {
+    1: [
+      { id: 1, question: "Define algorithm.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is flowchart?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define pseudocode.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is programming language?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define compiler.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is interpreter?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define source code.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is object code?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define variable.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is constant?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define data type.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is operator?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define expression.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is type casting?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define conditional statement.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is loop?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define array.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is string?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define 2D array.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is string concatenation?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define array initialization.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is string length?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define index.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is null character?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define function.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is recursion?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define parameter.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is return value?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define call by value.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is call by reference?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define scope of variable.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is storage class?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Define pointer.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is structure?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define union.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is dynamic memory allocation?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define file handling.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is malloc?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define NULL pointer.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is fopen?", years: ["2022", "2020"], frequency: 2 },
+    ]
+  }
 };
