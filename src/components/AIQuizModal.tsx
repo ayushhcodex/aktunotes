@@ -27,17 +27,11 @@ interface AIQuizModalProps {
 }
 
 const RATE_LIMIT_KEY = "quiz_rate_limit";
-const GLOBAL_RATE_LIMIT_KEY = "quiz_global_rate_limit";
 const MAX_QUIZZES_PER_UNIT = 2;
-const MAX_GLOBAL_QUIZZES = 3;
 const RATE_LIMIT_HOURS = 24;
 
 interface RateLimitData {
   [unitKey: string]: number[]; // Array of timestamps
-}
-
-interface GlobalRateLimitData {
-  timestamps: number[];
 }
 
 const getRateLimitData = (): RateLimitData => {
@@ -49,21 +43,8 @@ const getRateLimitData = (): RateLimitData => {
   }
 };
 
-const getGlobalRateLimitData = (): GlobalRateLimitData => {
-  try {
-    const data = localStorage.getItem(GLOBAL_RATE_LIMIT_KEY);
-    return data ? JSON.parse(data) : { timestamps: [] };
-  } catch {
-    return { timestamps: [] };
-  }
-};
-
 const saveRateLimitData = (data: RateLimitData) => {
   localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(data));
-};
-
-const saveGlobalRateLimitData = (data: GlobalRateLimitData) => {
-  localStorage.setItem(GLOBAL_RATE_LIMIT_KEY, JSON.stringify(data));
 };
 
 const getValidTimestamps = (timestamps: number[]): number[] => {
@@ -72,33 +53,7 @@ const getValidTimestamps = (timestamps: number[]): number[] => {
   return timestamps.filter(ts => ts > cutoff);
 };
 
-// Check global rate limit (3 total per device)
-const canGenerateGlobally = (): { allowed: boolean; remainingTime?: string } => {
-  const data = getGlobalRateLimitData();
-  const validTimestamps = getValidTimestamps(data.timestamps);
-  
-  if (validTimestamps.length >= MAX_GLOBAL_QUIZZES) {
-    const oldestTimestamp = Math.min(...validTimestamps);
-    const expiryTime = oldestTimestamp + RATE_LIMIT_HOURS * 60 * 60 * 1000;
-    const remainingMs = expiryTime - Date.now();
-    const remainingHours = Math.ceil(remainingMs / (60 * 60 * 1000));
-    return { 
-      allowed: false, 
-      remainingTime: remainingHours > 1 ? `${remainingHours} hours` : "less than an hour" 
-    };
-  }
-  
-  return { allowed: true };
-};
-
-// Check per-unit rate limit (2 per unit)
 const canGenerateQuiz = (subjectId: string, unitId: number): { allowed: boolean; remainingTime?: string } => {
-  // First check global limit
-  const globalCheck = canGenerateGlobally();
-  if (!globalCheck.allowed) {
-    return globalCheck;
-  }
-
   const unitKey = `${subjectId}_unit_${unitId}`;
   const data = getRateLimitData();
   const timestamps = data[unitKey] || [];
@@ -119,7 +74,6 @@ const canGenerateQuiz = (subjectId: string, unitId: number): { allowed: boolean;
 };
 
 const recordQuizGeneration = (subjectId: string, unitId: number) => {
-  // Record per-unit
   const unitKey = `${subjectId}_unit_${unitId}`;
   const data = getRateLimitData();
   const timestamps = data[unitKey] || [];
@@ -127,12 +81,6 @@ const recordQuizGeneration = (subjectId: string, unitId: number) => {
   validTimestamps.push(Date.now());
   data[unitKey] = validTimestamps;
   saveRateLimitData(data);
-
-  // Record global
-  const globalData = getGlobalRateLimitData();
-  const globalValidTimestamps = getValidTimestamps(globalData.timestamps);
-  globalValidTimestamps.push(Date.now());
-  saveGlobalRateLimitData({ timestamps: globalValidTimestamps });
 };
 
 const getRemainingQuizzes = (subjectId: string, unitId: number): number => {
@@ -141,12 +89,6 @@ const getRemainingQuizzes = (subjectId: string, unitId: number): number => {
   const timestamps = data[unitKey] || [];
   const validTimestamps = getValidTimestamps(timestamps);
   return Math.max(0, MAX_QUIZZES_PER_UNIT - validTimestamps.length);
-};
-
-const getGlobalRemainingQuizzes = (): number => {
-  const data = getGlobalRateLimitData();
-  const validTimestamps = getValidTimestamps(data.timestamps);
-  return Math.max(0, MAX_GLOBAL_QUIZZES - validTimestamps.length);
 };
 
 const AIQuizModal = ({ 
@@ -172,23 +114,14 @@ const AIQuizModal = ({
   const [hasStarted, setHasStarted] = useState(false);
   const [rateLimitError, setRateLimitError] = useState<string | null>(null);
   const [remainingQuizzes, setRemainingQuizzes] = useState(MAX_QUIZZES_PER_UNIT);
-  const [globalRemainingQuizzes, setGlobalRemainingQuizzes] = useState(MAX_GLOBAL_QUIZZES);
 
   useEffect(() => {
     if (isOpen) {
       setRemainingQuizzes(getRemainingQuizzes(subjectId, unitId));
-      setGlobalRemainingQuizzes(getGlobalRemainingQuizzes());
     }
   }, [isOpen, subjectId, unitId]);
 
   const generateQuiz = async () => {
-    // Check global rate limit first
-    const globalCheck = canGenerateGlobally();
-    if (!globalCheck.allowed) {
-      setRateLimitError(`You have reached your daily AI quiz limit (${MAX_GLOBAL_QUIZZES} quizzes). Try again in ${globalCheck.remainingTime}.`);
-      return;
-    }
-
     // Check per-unit rate limit
     const { allowed, remainingTime } = canGenerateQuiz(subjectId, unitId);
     if (!allowed) {
@@ -232,7 +165,6 @@ const AIQuizModal = ({
       // Record successful quiz generation
       recordQuizGeneration(subjectId, unitId);
       setRemainingQuizzes(getRemainingQuizzes(subjectId, unitId));
-      setGlobalRemainingQuizzes(getGlobalRemainingQuizzes());
 
       console.log("Quiz generated successfully:", data.questions.length, "questions");
       setQuestions(data.questions);
@@ -262,13 +194,6 @@ const AIQuizModal = ({
   };
 
   const handleStartQuiz = () => {
-    // Check global limit first
-    const globalCheck = canGenerateGlobally();
-    if (!globalCheck.allowed) {
-      setRateLimitError(`You have reached your daily AI quiz limit (${MAX_GLOBAL_QUIZZES} quizzes). Try again in ${globalCheck.remainingTime}.`);
-      return;
-    }
-
     const { allowed, remainingTime } = canGenerateQuiz(subjectId, unitId);
     if (!allowed) {
       setRateLimitError(`You have reached today's quiz limit for this unit. Try again in ${remainingTime}.`);
@@ -367,18 +292,11 @@ const AIQuizModal = ({
               <p className="text-sm text-muted-foreground mb-4">
                 {unitName}: {unitTitle}
               </p>
-              <div className="text-xs text-muted-foreground mb-6 space-y-1">
-                <p>
-                  {globalRemainingQuizzes > 0 
-                    ? `${globalRemainingQuizzes} AI quiz${globalRemainingQuizzes > 1 ? 'zes' : ''} remaining today (global limit)`
-                    : "No AI quizzes remaining today"}
-                </p>
-                <p>
-                  {remainingQuizzes > 0 
-                    ? `${remainingQuizzes} quiz${remainingQuizzes > 1 ? 'zes' : ''} remaining for this unit`
-                    : "No quizzes remaining for this unit today"}
-                </p>
-              </div>
+              <p className="text-xs text-muted-foreground mb-6">
+                {remainingQuizzes > 0 
+                  ? `${remainingQuizzes} quiz${remainingQuizzes > 1 ? 'zes' : ''} remaining today for this unit`
+                  : "No quizzes remaining for this unit today"}
+              </p>
               <div className="bg-muted/30 rounded-xl p-4 mb-6 max-w-md mx-auto text-left">
                 <p className="text-sm text-muted-foreground mb-2">This quiz will:</p>
                 <ul className="text-sm text-muted-foreground space-y-1">
@@ -392,7 +310,7 @@ const AIQuizModal = ({
                 onClick={handleStartQuiz}
                 className="gap-2 rounded-xl px-8"
                 style={{ backgroundColor: `hsl(var(--${subjectColor}))` }}
-                disabled={remainingQuizzes === 0 || globalRemainingQuizzes === 0}
+                disabled={remainingQuizzes === 0}
               >
                 <Sparkles className="w-4 h-4" />
                 Generate Quiz
