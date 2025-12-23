@@ -26,15 +26,14 @@ import {
 const feedbackSchema = z.object({
   fullName: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
   phoneNumber: z.string().trim().min(10, "Enter a valid phone number").max(15, "Phone number too long").regex(/^[0-9+\-\s()]+$/, "Invalid phone number format"),
-  email: z.string().trim().email("Enter a valid email address").max(255, "Email must be less than 255 characters"),
+  email: z.string().trim().email("Enter a valid email address").max(255, "Email must be less than 255 characters").optional().or(z.literal("")),
   year: z.string().min(1, "Please select a year"),
   message: z.string().trim().min(10, "Feedback must be at least 10 characters").max(1000, "Feedback must be less than 1000 characters"),
 });
 
 type FeedbackFormData = z.infer<typeof feedbackSchema>;
 
-// Replace this with your Google Apps Script URL when ready
-const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwh2Llhwv-JrdZjaCP_IHz_6AfDxbTSF3nQCvjmprWat-ELY0851PdQft2yYAfdrCrUvQ/exec";
 
 const Feedback = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -176,7 +175,7 @@ const Feedback = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email Address *</FormLabel>
+                      <FormLabel>Email Address (optional)</FormLabel>
                       <FormControl>
                         <Input 
                           placeholder="Enter your email" 
