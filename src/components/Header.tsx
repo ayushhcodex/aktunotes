@@ -3,20 +3,21 @@ import { GraduationCap, Sparkles } from "lucide-react";
 const Header = () => {
   return (
     <header className="relative overflow-hidden py-12 md:py-20">
-      {/* Animated background gradient */}
+      {/* Layered background with depth */}
       <div className="absolute inset-0 gradient-hero" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/20" />
       
-      {/* Decorative elements - softer, more refined */}
-      <div className="absolute top-10 left-10 w-24 h-24 bg-primary-foreground/8 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/15 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute top-1/2 left-1/4 w-20 h-20 bg-accent/15 rounded-full blur-2xl animate-float" />
-      <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-primary-foreground/5 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }} />
+      {/* Soft ambient glow orbs */}
+      <div className="absolute top-10 left-10 w-32 h-32 bg-primary-foreground/10 rounded-full blur-[80px] animate-pulse-slow" />
+      <div className="absolute bottom-20 right-10 w-48 h-48 bg-secondary/20 rounded-full blur-[100px] animate-pulse-slow" />
+      <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-accent/20 rounded-full blur-[60px] animate-float" />
+      <div className="absolute top-1/3 right-1/4 w-20 h-20 bg-primary-foreground/8 rounded-full blur-[50px] animate-float" style={{ animationDelay: '2s' }} />
+      <div className="absolute bottom-1/3 left-1/3 w-16 h-16 bg-secondary/15 rounded-full blur-[40px] animate-float" style={{ animationDelay: '4s' }} />
       
       <div className="container relative z-10">
         <div className="flex flex-col items-center text-center space-y-6">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-foreground/15 backdrop-blur-md rounded-full text-primary-foreground text-sm font-medium animate-fade-in border border-primary-foreground/10 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-foreground/12 backdrop-blur-md rounded-full text-primary-foreground text-sm font-medium animate-fade-in border border-primary-foreground/15 shadow-lg">
             <Sparkles className="w-4 h-4" />
             <span>Study Smart, Score High</span>
           </div>
@@ -24,8 +25,8 @@ const Header = () => {
           {/* Main Title */}
           <div className="space-y-3 animate-slide-up">
             <div className="flex items-center justify-center gap-3">
-              <GraduationCap className="w-10 h-10 md:w-14 md:h-14 text-primary-foreground" />
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground tracking-tight">
+              <GraduationCap className="w-10 h-10 md:w-14 md:h-14 text-primary-foreground drop-shadow-lg" />
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground tracking-tight drop-shadow-md">
                 Complete Study Material
               </h1>
             </div>
@@ -42,17 +43,17 @@ const Header = () => {
           
           {/* Stats */}
           <div className="flex flex-wrap justify-center gap-6 md:gap-10 pt-4 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <div className="text-center">
+            <div className="text-center px-4 py-2 bg-primary-foreground/8 backdrop-blur-sm rounded-xl">
               <p className="text-3xl md:text-4xl font-bold text-primary-foreground">2</p>
               <p className="text-sm text-primary-foreground/70">Semesters</p>
             </div>
             <div className="w-px h-12 bg-primary-foreground/20" />
-            <div className="text-center">
+            <div className="text-center px-4 py-2 bg-primary-foreground/8 backdrop-blur-sm rounded-xl">
               <p className="text-3xl md:text-4xl font-bold text-primary-foreground">15</p>
               <p className="text-sm text-primary-foreground/70">Subjects</p>
             </div>
             <div className="w-px h-12 bg-primary-foreground/20" />
-            <div className="text-center">
+            <div className="text-center px-4 py-2 bg-primary-foreground/8 backdrop-blur-sm rounded-xl">
               <p className="text-3xl md:text-4xl font-bold text-primary-foreground">75</p>
               <p className="text-sm text-primary-foreground/70">Units</p>
             </div>

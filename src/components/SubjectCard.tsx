@@ -47,7 +47,7 @@ const SubjectCard = ({ subject, index }: SubjectCardProps) => {
 
   return (
     <Card
-      className={`group overflow-hidden border border-border/60 hover:border-primary/20 transition-all duration-500 ease-out shadow-card hover:shadow-card-hover hover:-translate-y-1 animate-slide-up bg-gradient-to-br ${subject.gradientClass}`}
+      className={`group overflow-hidden border border-border/40 hover:border-primary/25 transition-all duration-500 ease-out shadow-card hover:shadow-card-hover hover:-translate-y-1.5 animate-slide-up bg-gradient-to-br ${subject.gradientClass} backdrop-blur-sm relative`}
       style={{ animationDelay: `${index * 0.08}s`, animationFillMode: 'backwards' }}
     >
       <CardHeader className="pb-3">
