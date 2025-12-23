@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import SearchBar from "@/components/SearchBar";
 import SubjectCard from "@/components/SubjectCard";
 import Footer from "@/components/Footer";
+import ThemeToggle from "@/components/ThemeToggle";
 import { Helmet } from "react-helmet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen, GraduationCap } from "lucide-react";
@@ -52,12 +53,14 @@ const Index = () => {
         />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen gradient-surface gradient-mesh surface-noise">
+        <ThemeToggle />
+        
         {/* Hero Header */}
         <Header />
 
         {/* Main Content */}
-        <main className="container py-12 space-y-12">
+        <main className="container py-12 space-y-12 relative z-10">
           {/* Search Section */}
           <section>
             <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
@@ -67,17 +70,17 @@ const Index = () => {
           <section id="subjects" className="space-y-8">
             <Tabs value={activeSemester} onValueChange={(v) => setActiveSemester(v as "3" | "1")} className="w-full">
               <div className="flex flex-col items-center space-y-6">
-                <TabsList className="grid w-full max-w-md grid-cols-2 h-14 p-1.5 bg-muted/60 backdrop-blur-sm rounded-2xl shadow-sm border border-border/50">
+                <TabsList className="grid w-full max-w-md grid-cols-2 h-14 p-1.5 bg-card/80 backdrop-blur-md rounded-2xl shadow-card border border-border/40">
                   <TabsTrigger 
                     value="3" 
-                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-button transition-all duration-300 font-semibold"
+                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-button-hover transition-all duration-300 font-semibold text-muted-foreground data-[state=active]:scale-[1.02]"
                   >
                     <GraduationCap className="w-4 h-4" />
                     <span>2nd Year</span>
                   </TabsTrigger>
                   <TabsTrigger 
                     value="1" 
-                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-button transition-all duration-300 font-semibold"
+                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-button-hover transition-all duration-300 font-semibold text-muted-foreground data-[state=active]:scale-[1.02]"
                   >
                     <BookOpen className="w-4 h-4" />
                     <span>1st Year</span>
@@ -143,24 +146,27 @@ const Index = () => {
 
           {/* Info Section */}
           <section className="max-w-3xl mx-auto text-center space-y-6 py-8">
-            <div className="p-8 rounded-2xl bg-card border border-border/60 shadow-card backdrop-blur-sm">
-              <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center justify-center gap-2">
-                <span className="text-xl">📌</span> How to Use
-              </h3>
-              <ul className="text-sm text-muted-foreground space-y-3">
-                <li className="flex items-start gap-2 justify-center">
-                  <span className="font-medium text-foreground">Open Drive Folder:</span>
-                  <span>Access all materials for a subject in one place</span>
-                </li>
-                <li className="flex items-start gap-2 justify-center">
-                  <span className="font-medium text-foreground">View Units:</span>
-                  <span>Expand to see unit-wise PDFs with direct download links</span>
-                </li>
-                <li className="flex items-start gap-2 justify-center">
-                  <span className="font-medium text-foreground">Search:</span>
-                  <span>Quickly find any subject or unit using the search bar</span>
-                </li>
-              </ul>
+            <div className="p-8 rounded-2xl bg-card/90 backdrop-blur-md border border-border/40 shadow-card relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.02] via-transparent to-accent/[0.02]" />
+              <div className="relative z-10">
+                <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center justify-center gap-2">
+                  <span className="text-xl">📌</span> How to Use
+                </h3>
+                <ul className="text-sm text-muted-foreground space-y-3">
+                  <li className="flex items-start gap-2 justify-center">
+                    <span className="font-medium text-foreground">Open Drive Folder:</span>
+                    <span>Access all materials for a subject in one place</span>
+                  </li>
+                  <li className="flex items-start gap-2 justify-center">
+                    <span className="font-medium text-foreground">View Units:</span>
+                    <span>Expand to see unit-wise PDFs with direct download links</span>
+                  </li>
+                  <li className="flex items-start gap-2 justify-center">
+                    <span className="font-medium text-foreground">Search:</span>
+                    <span>Quickly find any subject or unit using the search bar</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </section>
         </main>
