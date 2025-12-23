@@ -1,14 +1,12 @@
-import { useState } from "react";
 import { 
-  FolderOpen, BookOpen, ChevronDown, ExternalLink, 
+  FolderOpen, BookOpen, ExternalLink, 
   Cpu, Binary, Network, Lightbulb, Heart, Code,
   FlaskConical, Cog, CircuitBoard, Calculator, Code2,
-  Leaf, Users, Atom, Zap
+  Leaf, Users, Atom, Zap, Sparkles, GraduationCap, TrendingUp
 } from "lucide-react";
 import { Subject } from "@/config/subjectsData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import UnitAccordion from "./UnitAccordion";
 
 interface SubjectCardProps {
   subject: Subject;
@@ -34,13 +32,16 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 const SubjectCard = ({ subject, index }: SubjectCardProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const IconComponent = iconMap[subject.icon] || BookOpen;
 
   const handleOpenDrive = () => {
     if (subject.driveLink) {
       window.open(subject.driveLink, "_blank", "noopener,noreferrer");
     }
+  };
+
+  const handleOpenPage = (page: string) => {
+    window.open(`/${subject.id}/${page}`, "_blank", "noopener,noreferrer");
   };
 
   const hasDriveLink = subject.driveLink && subject.driveLink.length > 0;
@@ -72,67 +73,73 @@ const SubjectCard = ({ subject, index }: SubjectCardProps) => {
         <p className="text-sm text-muted-foreground mt-3 line-clamp-2">
           {subject.description}
         </p>
+        <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
+          <span className="px-2 py-1 rounded-full bg-muted/50">{subject.units.length} Units</span>
+          <span className="px-2 py-1 rounded-full bg-muted/50">{subject.semester === 1 ? "1st Year" : "2nd Year"}</span>
+        </div>
       </CardHeader>
 
       <CardContent className="space-y-4">
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Button
-            onClick={handleOpenDrive}
-            disabled={!hasDriveLink}
-            className="flex-1 gap-2 rounded-xl shadow-button hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{
-              backgroundColor: hasDriveLink ? `hsl(var(--${subject.colorClass}))` : undefined,
-            }}
-          >
-            <FolderOpen className="w-4 h-4" />
-            {hasDriveLink ? "Open Drive Folder" : "Coming Soon"}
-            {hasDriveLink && <ExternalLink className="w-3 h-3 opacity-70" />}
-          </Button>
+        {/* Notes Button */}
+        <Button
+          onClick={handleOpenDrive}
+          disabled={!hasDriveLink}
+          className="w-full gap-2 rounded-xl shadow-button hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed h-11"
+          style={{
+            backgroundColor: hasDriveLink ? `hsl(var(--${subject.colorClass}))` : undefined,
+          }}
+        >
+          <FolderOpen className="w-4 h-4" />
+          {hasDriveLink ? "View Notes" : "Notes Coming Soon"}
+          {hasDriveLink && <ExternalLink className="w-3 h-3 opacity-70" />}
+        </Button>
+
+        {/* CTA Buttons Grid */}
+        <div className="grid grid-cols-3 gap-2">
           <Button
             variant="outline"
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="flex-1 gap-2 rounded-xl border-2 hover:scale-[1.02] transition-all duration-200"
+            onClick={() => handleOpenPage("quiz")}
+            className="flex-col gap-1 h-auto py-3 rounded-xl border-2 hover:scale-[1.02] transition-all duration-200 group/btn"
             style={{
               borderColor: `hsl(var(--${subject.colorClass}) / 0.3)`,
-              color: `hsl(var(--${subject.colorClass}))`,
             }}
           >
-            <BookOpen className="w-4 h-4" />
-            View Units
-            <ChevronDown
-              className={`w-4 h-4 transition-transform duration-300 ${
-                isExpanded ? "rotate-180" : ""
-              }`}
+            <Sparkles 
+              className="w-5 h-5 transition-colors" 
+              style={{ color: `hsl(var(--${subject.colorClass}))` }}
             />
+            <span className="text-xs font-medium">AI Quiz</span>
           </Button>
-        </div>
-
-        {/* Expandable Units Section */}
-        <div
-          className={`overflow-hidden transition-all duration-500 ease-out ${
-            isExpanded ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="pt-4 border-t border-border/50">
-            <div className="flex items-center gap-2 mb-4">
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: `hsl(var(--${subject.colorClass}))` }}
-              />
-              <h4 className="font-semibold text-foreground">
-                Unit-wise Notes ({subject.units.length} Units)
-              </h4>
-            </div>
-            <UnitAccordion 
-              units={subject.units} 
-              subjectColor={subject.colorClass} 
-              subjectId={subject.id}
-              subjectName={subject.code}
-              subjectFullName={subject.fullName}
-              semester={subject.semester}
+          
+          <Button
+            variant="outline"
+            onClick={() => handleOpenPage("pyq")}
+            className="flex-col gap-1 h-auto py-3 rounded-xl border-2 hover:scale-[1.02] transition-all duration-200 group/btn"
+            style={{
+              borderColor: `hsl(var(--${subject.colorClass}) / 0.3)`,
+            }}
+          >
+            <GraduationCap 
+              className="w-5 h-5 transition-colors" 
+              style={{ color: `hsl(var(--${subject.colorClass}))` }}
             />
-          </div>
+            <span className="text-xs font-medium">PYQ</span>
+          </Button>
+          
+          <Button
+            variant="outline"
+            onClick={() => handleOpenPage("important-topics")}
+            className="flex-col gap-1 h-auto py-3 rounded-xl border-2 hover:scale-[1.02] transition-all duration-200 group/btn"
+            style={{
+              borderColor: `hsl(var(--${subject.colorClass}) / 0.3)`,
+            }}
+          >
+            <TrendingUp 
+              className="w-5 h-5 transition-colors" 
+              style={{ color: `hsl(var(--${subject.colorClass}))` }}
+            />
+            <span className="text-xs font-medium">Topics</span>
+          </Button>
         </div>
       </CardContent>
     </Card>
