@@ -60,3 +60,40 @@ The project is deployed using **Vercel** with GitHub integration.
 ---
 
 ## Project Structure (Overview)
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── styles/
+│   └── main.tsx
+├── index.html
+├── package.json
+├── vite.config.ts
+└── README.md
+---
+
+## Use Case
+- AKTU students preparing for semester examinations
+- Self-assessment through quiz practice
+- Quick revision of academic topics
+
+---
+
+## Future Enhancements
+- Backend integration for user authentication
+- Database support for quiz history and scores
+- Admin panel for content management
+- Performance analytics and usage insights
+
+---
+
+## Disclaimer
+This project is an **independent academic project** developed for educational purposes and is **not officially affiliated with AKTU**.
+
+---
+
+## Author
+**Name:** Ayush Singh 
+**Degree:** B.Tech (Computer Science & Engineering)  
+**Academic Year:** Final Year  
+**Project Type:** Academic / Educational  
