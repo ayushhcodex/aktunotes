@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { FileText, Download, ExternalLink, Sparkles, Star, TrendingUp, GraduationCap, Calendar } from "lucide-react";
+import { FileText, Download, ExternalLink, Sparkles, Star, TrendingUp, GraduationCap, Calendar, BookOpen } from "lucide-react";
 import { Unit } from "@/config/subjectsData";
-import { getPYQ, hasPYQ } from "@/config/pyqData";
+import { getPYQ7Marks, getPYQ2Marks, hasPYQ, hasPYQ2Marks } from "@/config/pyqData";
 import { getImportantTopics, hasImportantTopics } from "@/config/importantTopics";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AIQuizModal from "./AIQuizModal";
 
 interface UnitAccordionProps {
@@ -53,8 +54,10 @@ const UnitAccordion = ({
         {units.map((unit, index) => {
           const topics = getImportantTopics(subjectId, unit.id);
           const hasTopics = hasImportantTopics(subjectId, unit.id);
-          const pyqQuestions = getPYQ(subjectId, unit.id);
+          const pyq7MarksQuestions = getPYQ7Marks(subjectId, unit.id);
+          const pyq2MarksQuestions = getPYQ2Marks(subjectId, unit.id);
           const hasPYQData = hasPYQ(subjectId, unit.id);
+          const has2Marks = hasPYQ2Marks(subjectId, unit.id);
           const pyqKey = `${subjectId}-${unit.id}`;
 
           return (
@@ -145,7 +148,7 @@ const UnitAccordion = ({
                     </div>
                   )}
 
-                  {/* 7 Marks PYQ Section */}
+                  {/* PYQ Section with Tabs */}
                   {hasPYQData && (
                     <div 
                       className="rounded-xl border-2 overflow-hidden"
@@ -168,76 +171,160 @@ const UnitAccordion = ({
                             <GraduationCap className="w-4 h-4" style={{ color: `hsl(var(--${subjectColor}))` }} />
                           </div>
                           <div className="text-left">
-                            <h4 className="font-semibold text-foreground text-sm">7 Marks PYQ (Most Repeated)</h4>
-                            <p className="text-xs text-muted-foreground">Previous year theory questions for AKTU</p>
+                            <h4 className="font-semibold text-foreground text-sm">Previous Year Questions (PYQ)</h4>
+                            <p className="text-xs text-muted-foreground">Most repeated questions for AKTU exams</p>
                           </div>
                         </div>
-                        <div
-                          className="px-3 py-1 rounded-full text-xs font-bold"
-                          style={{
-                            backgroundColor: `hsl(var(--${subjectColor}) / 0.15)`,
-                            color: `hsl(var(--${subjectColor}))`,
-                          }}
-                        >
-                          {pyqQuestions.length} Questions
+                        <div className="flex gap-2">
+                          <span
+                            className="px-2 py-1 rounded-full text-xs font-bold"
+                            style={{
+                              backgroundColor: `hsl(var(--${subjectColor}) / 0.15)`,
+                              color: `hsl(var(--${subjectColor}))`,
+                            }}
+                          >
+                            7M: {pyq7MarksQuestions.length}
+                          </span>
+                          {has2Marks && (
+                            <span
+                              className="px-2 py-1 rounded-full text-xs font-bold bg-muted text-muted-foreground"
+                            >
+                              2M: {pyq2MarksQuestions.length}
+                            </span>
+                          )}
                         </div>
                       </button>
                       
                       {expandedPYQ === pyqKey && (
-                        <div className="border-t border-border/30 p-4 space-y-3 max-h-96 overflow-y-auto">
-                          {pyqQuestions.map((pyq, idx) => (
-                            <div
-                              key={pyq.id}
-                              className="p-3 rounded-lg border border-border/30 bg-background/50 hover:bg-background transition-colors"
-                            >
-                              <div className="flex items-start gap-3">
-                                <span
-                                  className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
-                                  style={{
-                                    backgroundColor: `hsl(var(--${subjectColor}) / 0.15)`,
-                                    color: `hsl(var(--${subjectColor}))`,
-                                  }}
-                                >
-                                  {idx + 1}
-                                </span>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-sm text-foreground font-medium leading-relaxed">
-                                    {pyq.question}
-                                  </p>
-                                  <div className="flex items-center gap-2 mt-2 flex-wrap">
-                                    <Calendar className="w-3 h-3 text-muted-foreground" />
-                                    <div className="flex flex-wrap gap-1">
-                                      {pyq.years.map((year, yIdx) => (
-                                        <span
-                                          key={yIdx}
-                                          className="px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground"
-                                        >
-                                          {year}
-                                        </span>
-                                      ))}
+                        <div className="border-t border-border/30">
+                          <Tabs defaultValue="7marks" className="w-full">
+                            <TabsList className="w-full rounded-none border-b border-border/30 bg-transparent p-0 h-auto">
+                              <TabsTrigger 
+                                value="7marks" 
+                                className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-current py-3 px-4 text-sm font-medium data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                                style={{ 
+                                  color: `hsl(var(--${subjectColor}))`,
+                                }}
+                              >
+                                <GraduationCap className="w-4 h-4 mr-2" />
+                                7 Marks ({pyq7MarksQuestions.length})
+                              </TabsTrigger>
+                              <TabsTrigger 
+                                value="2marks" 
+                                className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-current py-3 px-4 text-sm font-medium data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                                style={{ 
+                                  color: `hsl(var(--${subjectColor}))`,
+                                }}
+                              >
+                                <BookOpen className="w-4 h-4 mr-2" />
+                                2 Marks ({pyq2MarksQuestions.length})
+                              </TabsTrigger>
+                            </TabsList>
+                            
+                            <TabsContent value="7marks" className="p-4 space-y-3 max-h-96 overflow-y-auto mt-0">
+                              {pyq7MarksQuestions.length > 0 ? (
+                                pyq7MarksQuestions.map((pyq, idx) => (
+                                  <div
+                                    key={pyq.id}
+                                    className="p-3 rounded-lg border border-border/30 bg-background/50 hover:bg-background transition-colors"
+                                  >
+                                    <div className="flex items-start gap-3">
+                                      <span
+                                        className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
+                                        style={{
+                                          backgroundColor: `hsl(var(--${subjectColor}) / 0.15)`,
+                                          color: `hsl(var(--${subjectColor}))`,
+                                        }}
+                                      >
+                                        {idx + 1}
+                                      </span>
+                                      <div className="flex-1 min-w-0">
+                                        <p className="text-sm text-foreground font-medium leading-relaxed">
+                                          {pyq.question}
+                                        </p>
+                                        <div className="flex items-center gap-2 mt-2 flex-wrap">
+                                          <Calendar className="w-3 h-3 text-muted-foreground" />
+                                          <div className="flex flex-wrap gap-1">
+                                            {pyq.years.map((year, yIdx) => (
+                                              <span
+                                                key={yIdx}
+                                                className="px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground"
+                                              >
+                                                {year}
+                                              </span>
+                                            ))}
+                                          </div>
+                                          <span
+                                            className="ml-auto px-2 py-0.5 rounded-full text-xs font-bold"
+                                            style={{
+                                              backgroundColor: pyq.frequency >= 4 
+                                                ? 'hsl(var(--destructive) / 0.15)' 
+                                                : pyq.frequency >= 3 
+                                                  ? 'hsl(var(--warning) / 0.15)' 
+                                                  : `hsl(var(--${subjectColor}) / 0.15)`,
+                                              color: pyq.frequency >= 4 
+                                                ? 'hsl(var(--destructive))' 
+                                                : pyq.frequency >= 3 
+                                                  ? 'hsl(var(--warning))' 
+                                                  : `hsl(var(--${subjectColor}))`,
+                                            }}
+                                          >
+                                            {pyq.frequency >= 4 ? '🔥 ' : pyq.frequency >= 3 ? '⭐ ' : ''}{pyq.frequency}x asked
+                                          </span>
+                                        </div>
+                                      </div>
                                     </div>
-                                    <span
-                                      className="ml-auto px-2 py-0.5 rounded-full text-xs font-bold"
-                                      style={{
-                                        backgroundColor: pyq.frequency >= 4 
-                                          ? 'hsl(var(--destructive) / 0.15)' 
-                                          : pyq.frequency >= 3 
-                                            ? 'hsl(var(--warning) / 0.15)' 
-                                            : `hsl(var(--${subjectColor}) / 0.15)`,
-                                        color: pyq.frequency >= 4 
-                                          ? 'hsl(var(--destructive))' 
-                                          : pyq.frequency >= 3 
-                                            ? 'hsl(var(--warning))' 
-                                            : `hsl(var(--${subjectColor}))`,
-                                      }}
-                                    >
-                                      {pyq.frequency >= 4 ? '🔥 ' : pyq.frequency >= 3 ? '⭐ ' : ''}{pyq.frequency}x asked
-                                    </span>
                                   </div>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
+                                ))
+                              ) : (
+                                <p className="text-sm text-muted-foreground text-center py-4">No 7 marks questions available for this unit.</p>
+                              )}
+                            </TabsContent>
+                            
+                            <TabsContent value="2marks" className="p-4 space-y-3 max-h-96 overflow-y-auto mt-0">
+                              {pyq2MarksQuestions.length > 0 ? (
+                                pyq2MarksQuestions.map((pyq, idx) => (
+                                  <div
+                                    key={pyq.id}
+                                    className="p-3 rounded-lg border border-border/30 bg-background/50 hover:bg-background transition-colors"
+                                  >
+                                    <div className="flex items-start gap-3">
+                                      <span
+                                        className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-muted text-muted-foreground"
+                                      >
+                                        {idx + 1}
+                                      </span>
+                                      <div className="flex-1 min-w-0">
+                                        <p className="text-sm text-foreground font-medium leading-relaxed">
+                                          {pyq.question}
+                                        </p>
+                                        <div className="flex items-center gap-2 mt-2 flex-wrap">
+                                          <Calendar className="w-3 h-3 text-muted-foreground" />
+                                          <div className="flex flex-wrap gap-1">
+                                            {pyq.years.map((year, yIdx) => (
+                                              <span
+                                                key={yIdx}
+                                                className="px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground"
+                                              >
+                                                {year}
+                                              </span>
+                                            ))}
+                                          </div>
+                                          <span
+                                            className="ml-auto px-2 py-0.5 rounded-full text-xs font-bold bg-muted text-muted-foreground"
+                                          >
+                                            {pyq.frequency}x asked
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))
+                              ) : (
+                                <p className="text-sm text-muted-foreground text-center py-4">No 2 marks questions available for this unit.</p>
+                              )}
+                            </TabsContent>
+                          </Tabs>
                         </div>
                       )}
                     </div>
