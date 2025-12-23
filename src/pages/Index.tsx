@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { semester1Subjects, semester3Subjects, Subject } from "@/config/subjectsData";
 import Header from "@/components/Header";
+import Navigation from "@/components/Navigation";
 import SearchBar from "@/components/SearchBar";
 import SubjectCard from "@/components/SubjectCard";
 import Footer from "@/components/Footer";
@@ -51,6 +52,9 @@ const Index = () => {
       </Helmet>
 
       <div className="min-h-screen bg-background">
+        {/* Navigation */}
+        <Navigation />
+        
         {/* Hero Header */}
         <Header />
 
