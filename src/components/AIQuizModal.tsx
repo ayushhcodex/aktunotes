@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { X, CheckCircle, XCircle, RotateCcw, Trophy, Sparkles, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, CheckCircle, XCircle, RotateCcw, Trophy, Sparkles, Loader2, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -26,6 +26,73 @@ interface AIQuizModalProps {
   semester: 1 | 3;
 }
 
+const RATE_LIMIT_KEY = "quiz_rate_limit";
+const MAX_QUIZZES_PER_UNIT = 2;
+const RATE_LIMIT_HOURS = 24;
+
+interface RateLimitData {
+  [unitKey: string]: number[]; // Array of timestamps
+}
+
+const getRateLimitData = (): RateLimitData => {
+  try {
+    const data = localStorage.getItem(RATE_LIMIT_KEY);
+    return data ? JSON.parse(data) : {};
+  } catch {
+    return {};
+  }
+};
+
+const saveRateLimitData = (data: RateLimitData) => {
+  localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(data));
+};
+
+const getValidTimestamps = (timestamps: number[]): number[] => {
+  const now = Date.now();
+  const cutoff = now - RATE_LIMIT_HOURS * 60 * 60 * 1000;
+  return timestamps.filter(ts => ts > cutoff);
+};
+
+const canGenerateQuiz = (subjectId: string, unitId: number): { allowed: boolean; remainingTime?: string } => {
+  const unitKey = `${subjectId}_unit_${unitId}`;
+  const data = getRateLimitData();
+  const timestamps = data[unitKey] || [];
+  const validTimestamps = getValidTimestamps(timestamps);
+  
+  if (validTimestamps.length >= MAX_QUIZZES_PER_UNIT) {
+    // Calculate remaining time until oldest timestamp expires
+    const oldestTimestamp = Math.min(...validTimestamps);
+    const expiryTime = oldestTimestamp + RATE_LIMIT_HOURS * 60 * 60 * 1000;
+    const remainingMs = expiryTime - Date.now();
+    const remainingHours = Math.ceil(remainingMs / (60 * 60 * 1000));
+    return { 
+      allowed: false, 
+      remainingTime: remainingHours > 1 ? `${remainingHours} hours` : "less than an hour" 
+    };
+  }
+  
+  return { allowed: true };
+};
+
+const recordQuizGeneration = (subjectId: string, unitId: number) => {
+  const unitKey = `${subjectId}_unit_${unitId}`;
+  const data = getRateLimitData();
+  const timestamps = data[unitKey] || [];
+  const validTimestamps = getValidTimestamps(timestamps);
+  
+  validTimestamps.push(Date.now());
+  data[unitKey] = validTimestamps;
+  saveRateLimitData(data);
+};
+
+const getRemainingQuizzes = (subjectId: string, unitId: number): number => {
+  const unitKey = `${subjectId}_unit_${unitId}`;
+  const data = getRateLimitData();
+  const timestamps = data[unitKey] || [];
+  const validTimestamps = getValidTimestamps(timestamps);
+  return Math.max(0, MAX_QUIZZES_PER_UNIT - validTimestamps.length);
+};
+
 const AIQuizModal = ({ 
   isOpen, 
   onClose, 
@@ -47,10 +114,26 @@ const AIQuizModal = ({
   const [answers, setAnswers] = useState<{ selected: number; correct: boolean }[]>([]);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
+  const [rateLimitError, setRateLimitError] = useState<string | null>(null);
+  const [remainingQuizzes, setRemainingQuizzes] = useState(MAX_QUIZZES_PER_UNIT);
+
+  useEffect(() => {
+    if (isOpen) {
+      setRemainingQuizzes(getRemainingQuizzes(subjectId, unitId));
+    }
+  }, [isOpen, subjectId, unitId]);
 
   const generateQuiz = async () => {
+    // Check rate limit before generating
+    const { allowed, remainingTime } = canGenerateQuiz(subjectId, unitId);
+    if (!allowed) {
+      setRateLimitError(`You have reached today's quiz limit for this unit. Try again in ${remainingTime}.`);
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
+    setRateLimitError(null);
     setQuestions([]);
     setHasStarted(true);
 
@@ -81,6 +164,10 @@ const AIQuizModal = ({
         throw new Error("No questions generated");
       }
 
+      // Record successful quiz generation
+      recordQuizGeneration(subjectId, unitId);
+      setRemainingQuizzes(getRemainingQuizzes(subjectId, unitId));
+
       console.log("Quiz generated successfully:", data.questions.length, "questions");
       setQuestions(data.questions);
     } catch (err) {
@@ -104,10 +191,16 @@ const AIQuizModal = ({
     setIsLoading(true);
     setError(null);
     setHasStarted(false);
+    setRateLimitError(null);
     onClose();
   };
 
   const handleStartQuiz = () => {
+    const { allowed, remainingTime } = canGenerateQuiz(subjectId, unitId);
+    if (!allowed) {
+      setRateLimitError(`You have reached today's quiz limit for this unit. Try again in ${remainingTime}.`);
+      return;
+    }
     generateQuiz();
   };
 
@@ -189,7 +282,7 @@ const AIQuizModal = ({
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6">
           {/* Start Screen */}
-          {!hasStarted && (
+          {!hasStarted && !rateLimitError && (
             <div className="text-center py-12 animate-fade-in">
               <div className="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-gradient-to-br from-primary/20 to-accent/20">
                 <Sparkles className="w-10 h-10 text-primary" />
@@ -198,8 +291,13 @@ const AIQuizModal = ({
               <p className="text-muted-foreground mb-2">
                 {subjectFullName}
               </p>
-              <p className="text-sm text-muted-foreground mb-6">
+              <p className="text-sm text-muted-foreground mb-4">
                 {unitName}: {unitTitle}
+              </p>
+              <p className="text-xs text-muted-foreground mb-6">
+                {remainingQuizzes > 0 
+                  ? `${remainingQuizzes} quiz${remainingQuizzes > 1 ? 'zes' : ''} remaining today for this unit`
+                  : "No quizzes remaining for this unit today"}
               </p>
               <div className="bg-muted/30 rounded-xl p-4 mb-6 max-w-md mx-auto text-left">
                 <p className="text-sm text-muted-foreground mb-2">This quiz will:</p>
@@ -214,9 +312,30 @@ const AIQuizModal = ({
                 onClick={handleStartQuiz}
                 className="gap-2 rounded-xl px-8"
                 style={{ backgroundColor: `hsl(var(--${subjectColor}))` }}
+                disabled={remainingQuizzes === 0}
               >
                 <Sparkles className="w-4 h-4" />
                 Generate Quiz
+              </Button>
+            </div>
+          )}
+
+          {/* Rate Limit Error */}
+          {!hasStarted && rateLimitError && (
+            <div className="text-center py-12 animate-fade-in">
+              <div className="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center bg-amber-100 dark:bg-amber-950/30">
+                <Clock className="w-10 h-10 text-amber-500" />
+              </div>
+              <h3 className="text-xl font-bold text-foreground mb-2">Quiz Limit Reached</h3>
+              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                {rateLimitError}
+              </p>
+              <Button 
+                onClick={handleClose}
+                variant="outline"
+                className="rounded-xl"
+              >
+                Close
               </Button>
             </div>
           )}
