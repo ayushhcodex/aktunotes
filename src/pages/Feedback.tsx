@@ -54,18 +54,22 @@ const Feedback = () => {
     setIsSubmitting(true);
     
     try {
-      const formData = new FormData();
-      formData.append("fullName", data.fullName);
-      formData.append("phoneNumber", data.phoneNumber);
-      formData.append("email", data.email || "");
-      formData.append("year", data.year);
-      formData.append("message", data.message);
-      formData.append("timestamp", new Date().toISOString());
+      const payload = {
+        fullName: data.fullName,
+        phoneNumber: data.phoneNumber,
+        email: data.email || "",
+        year: data.year,
+        message: data.message,
+        timestamp: new Date().toISOString(),
+      };
 
       await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       });
 
       setIsSubmitted(true);
