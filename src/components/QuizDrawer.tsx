@@ -18,17 +18,11 @@ const QuizDrawer = ({ isOpen, onClose, subject }: QuizDrawerProps) => {
   const handleStartQuiz = (unit: Unit) => {
     setSelectedUnit(unit);
     setAIQuizOpen(true);
-    onClose(); // Close the drawer when unit is selected
-  };
-
-  const handleQuizClose = () => {
-    setAIQuizOpen(false);
-    setSelectedUnit(null);
   };
 
   return (
     <>
-      <Sheet open={isOpen && !aiQuizOpen} onOpenChange={onClose}>
+      <Sheet open={isOpen} onOpenChange={onClose}>
         <SheetContent side="right" className="w-full sm:max-w-lg overflow-y-auto">
           <SheetHeader className="pb-4">
             <div className="flex items-center gap-3">
@@ -88,7 +82,7 @@ const QuizDrawer = ({ isOpen, onClose, subject }: QuizDrawerProps) => {
       {selectedUnit && (
         <AIQuizModal
           isOpen={aiQuizOpen}
-          onClose={handleQuizClose}
+          onClose={() => setAIQuizOpen(false)}
           subjectId={subject.id}
           subjectName={subject.code}
           subjectFullName={subject.fullName}
