@@ -12,7 +12,7 @@ The platform focuses on improving learning efficiency, self-assessment, and exam
 ---
 
 ## Objectives
-- To provide organized and easily accessible AKTU study notes
+- To provide organized and easily accessible AKTU study notess    
 - To enable self-evaluation through subject-wise quizzes
 - To build a responsive and scalable educational web application
 - To apply modern frontend development tools and practices
