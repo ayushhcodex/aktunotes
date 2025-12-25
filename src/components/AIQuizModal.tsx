@@ -136,8 +136,6 @@ const AIQuizModal = ({
     setHasStarted(true);
 
     try {
-      console.log("Generating AI quiz for:", { subjectName, unitName, unitTitle });
-
       const { data, error: fnError } = await supabase.functions.invoke('generate-quiz', {
         body: {
           subjectName,
@@ -150,29 +148,38 @@ const AIQuizModal = ({
       });
 
       if (fnError) {
-        console.error("Function error:", fnError);
-        throw new Error(fnError.message || "Failed to generate quiz");
+        console.error("Quiz generation failed");
+        throw new Error("Failed to generate quiz. Please try again.");
       }
 
+      // Handle structured error responses from edge function
       if (data?.error) {
-        throw new Error(data.error);
+        const errorCode = data.error.code || 'UNKNOWN';
+        const userMessage = data.error.message || "Failed to generate quiz. Please try again.";
+        
+        if (errorCode === 'RATE_LIMIT') {
+          setRateLimitError("You've made too many requests. Please wait a moment and try again.");
+          setIsLoading(false);
+          return;
+        }
+        
+        throw new Error(userMessage);
       }
 
       if (!data?.questions || data.questions.length === 0) {
-        throw new Error("No questions generated");
+        throw new Error("Failed to generate quiz. Please try again.");
       }
 
       // Record successful quiz generation
       recordQuizGeneration(subjectId, unitId);
       setRemainingQuizzes(getRemainingQuizzes(subjectId, unitId));
 
-      console.log("Quiz generated successfully:", data.questions.length, "questions");
       setQuestions(data.questions);
     } catch (err) {
-      console.error("Error generating quiz:", err);
-      const errorMessage = err instanceof Error ? err.message : "Failed to generate quiz";
+      console.error("Quiz generation error");
+      const errorMessage = err instanceof Error ? err.message : "Failed to generate quiz. Please try again.";
       setError(errorMessage);
-      toast.error(errorMessage);
+      toast.error("Quiz generation failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
