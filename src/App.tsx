@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Feedback from "./pages/Feedback";
 import AIQuiz from "./pages/AIQuiz";
+import ImportantTopics from "./pages/ImportantTopics";
 import NotFound from "./pages/NotFound";
 import FloatingFeedbackButton from "./components/FloatingFeedbackButton";
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/ai-quiz" element={<AIQuiz />} />
+          <Route path="/important-topics" element={<ImportantTopics />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

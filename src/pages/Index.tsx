@@ -84,15 +84,18 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">Most repeated AKTU questions</p>
               </div>
             </div>
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-secondary/10 to-secondary/5 border border-secondary/20 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center">
+            <Link 
+              to="/important-topics"
+              className="p-5 rounded-2xl bg-gradient-to-br from-secondary/10 to-secondary/5 border border-secondary/20 flex items-center gap-4 hover:border-secondary/40 hover:shadow-md transition-all duration-200 group"
+            >
+              <div className="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <TrendingUp className="w-6 h-6 text-secondary-foreground" />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground">Important Topics</h3>
                 <p className="text-sm text-muted-foreground">Focus on high-priority topics</p>
               </div>
-            </div>
+            </Link>
           </section>
 
           {/* Search Section */}
