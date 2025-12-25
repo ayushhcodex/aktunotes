@@ -53,6 +53,7 @@ const SubjectCard = ({ subject, index }: SubjectCardProps) => {
   return (
     <>
       <Card
+        id={`subject-${subject.id}`}
         className={`group overflow-hidden border-2 border-border/50 hover:border-border transition-all duration-300 hover:shadow-card-hover animate-slide-up bg-gradient-to-br ${subject.gradientClass}`}
         style={{ animationDelay: `${index * 0.1}s` }}
       >
