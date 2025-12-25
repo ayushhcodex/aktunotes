@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -21,7 +20,7 @@ const Navigation = () => {
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="bg-transparent">
-                Semester 1
+                1st Year
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[300px] gap-1 p-2 md:w-[400px] md:grid-cols-2">
@@ -44,7 +43,7 @@ const Navigation = () => {
 
             <NavigationMenuItem>
               <NavigationMenuTrigger className="bg-transparent">
-                Semester 3
+                2nd Year
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[300px] gap-1 p-2 md:w-[400px] md:grid-cols-2">
@@ -63,15 +62,6 @@ const Navigation = () => {
                   ))}
                 </ul>
               </NavigationMenuContent>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <Link
-                to="/feedback"
-                className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus:outline-none focus:bg-accent focus:text-accent-foreground disabled:opacity-50 disabled:pointer-events-none bg-transparent hover:bg-accent hover:text-accent-foreground h-10 px-4"
-              >
-                Feedback
-              </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
