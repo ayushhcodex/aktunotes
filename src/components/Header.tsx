@@ -15,8 +15,7 @@ const Header = () => {
         <div className="flex flex-col items-center text-center space-y-6">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-foreground/20 backdrop-blur-sm rounded-full text-primary-foreground text-sm font-medium animate-fade-in">
-            <Sparkles className="w-4 h-4" />
-            <span>Study Smart, Score High</span>
+            <span>🚀 Exam-Focused. Student-Built. AKTU Ready.</span>
           </div>
           
           {/* Main Title */}
@@ -24,18 +23,20 @@ const Header = () => {
             <div className="flex items-center justify-center gap-3">
               <GraduationCap className="w-10 h-10 md:w-14 md:h-14 text-primary-foreground" />
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground tracking-tight">
-                Complete Study Material
+                Everything You Need to Crack AKTU Exams
               </h1>
             </div>
             <p className="text-xl md:text-2xl lg:text-3xl font-semibold text-primary-foreground/90">
-              AKTU B.Tech Notes – 2025
+              Unit-Wise Notes, PYQs & AI-Powered Practice
             </p>
           </div>
           
           {/* Description */}
           <p className="max-w-2xl text-primary-foreground/80 text-base md:text-lg animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            Access all your B.Tech study materials in one place. 
-            Download PDFs, access Google Drive folders, and ace your exams!
+            Get AKTU-aligned notes, most-repeated previous year questions, and AI-generated quizzes — all structured unit-wise to help you revise faster and score higher.
+          </p>
+          <p className="text-primary-foreground/60 text-sm animate-fade-in" style={{ animationDelay: "0.3s" }}>
+            Choose your semester above and start preparing in seconds.
           </p>
           
           {/* Stats */}
