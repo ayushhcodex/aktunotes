@@ -36,26 +36,8 @@ const Header = () => {
             Get AKTU-aligned notes, most-repeated previous year questions, and AI-generated quizzes — all structured unit-wise to help you revise faster and score higher.
           </p>
           <p className="text-primary-foreground/60 text-sm animate-fade-in" style={{ animationDelay: "0.3s" }}>
-            Choose your semester above and start preparing in seconds.
+            Select your year below → choose a subject → pick a unit → start practicing.
           </p>
-          
-          {/* Stats */}
-          <div className="flex flex-wrap justify-center gap-6 md:gap-10 pt-4 animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <div className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">2</p>
-              <p className="text-sm text-primary-foreground/70">Semesters</p>
-            </div>
-            <div className="w-px h-12 bg-primary-foreground/20" />
-            <div className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">15</p>
-              <p className="text-sm text-primary-foreground/70">Subjects</p>
-            </div>
-            <div className="w-px h-12 bg-primary-foreground/20" />
-            <div className="text-center">
-              <p className="text-3xl md:text-4xl font-bold text-primary-foreground">75</p>
-              <p className="text-sm text-primary-foreground/70">Units</p>
-            </div>
-          </div>
         </div>
       </div>
       
