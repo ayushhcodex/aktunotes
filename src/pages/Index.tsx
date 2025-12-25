@@ -62,7 +62,7 @@ const Index = () => {
         {/* Main Content */}
         <main className="container py-12 space-y-12">
           {/* Features Highlight */}
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Link 
               to="/ai-quiz"
               className="p-5 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 flex items-center gap-4 hover:border-primary/40 hover:shadow-md transition-all duration-200 group"
@@ -75,15 +75,6 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">Practice with AI-generated MCQs</p>
               </div>
             </Link>
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border border-accent/20 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
-                <GraduationCap className="w-6 h-6 text-accent-foreground" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-foreground">Previous Year Questions</h3>
-                <p className="text-sm text-muted-foreground">Most repeated AKTU questions</p>
-              </div>
-            </div>
             <Link 
               to="/important-topics"
               className="p-5 rounded-2xl bg-gradient-to-br from-secondary/10 to-secondary/5 border border-secondary/20 flex items-center gap-4 hover:border-secondary/40 hover:shadow-md transition-all duration-200 group"
