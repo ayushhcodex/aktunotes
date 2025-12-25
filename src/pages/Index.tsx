@@ -1,17 +1,15 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { semester1Subjects, semester3Subjects, Subject } from "@/config/subjectsData";
+import { semester1Subjects, semester3Subjects } from "@/config/subjectsData";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
-import SearchBar from "@/components/SearchBar";
-import SubjectCard from "@/components/SubjectCard";
+import SubjectDropdown from "@/components/SubjectDropdown";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen, GraduationCap, Sparkles, TrendingUp } from "lucide-react";
 
 const Index = () => {
-  const [searchQuery, setSearchQuery] = useState("");
   const [activeSemester, setActiveSemester] = useState<"3" | "1">("3");
 
   // Listen for year selection events from Navigation
@@ -25,30 +23,6 @@ const Index = () => {
       window.removeEventListener('yearSelect', handleYearSelect as EventListener);
     };
   }, []);
-
-  const filterSubjects = (subjects: Subject[]) => {
-    if (!searchQuery.trim()) return subjects;
-
-    const query = searchQuery.toLowerCase();
-    return subjects.filter((subject) => {
-      const matchesSubject =
-        subject.name.toLowerCase().includes(query) ||
-        subject.code.toLowerCase().includes(query) ||
-        subject.fullName.toLowerCase().includes(query) ||
-        subject.description.toLowerCase().includes(query);
-
-      const matchesUnit = subject.units.some(
-        (unit) =>
-          unit.name.toLowerCase().includes(query) ||
-          unit.title.toLowerCase().includes(query)
-      );
-
-      return matchesSubject || matchesUnit;
-    });
-  };
-
-  const filteredSemester3 = useMemo(() => filterSubjects(semester3Subjects), [searchQuery]);
-  const filteredSemester1 = useMemo(() => filterSubjects(semester1Subjects), [searchQuery]);
 
   return (
     <>
@@ -101,12 +75,7 @@ const Index = () => {
             </Link>
           </section>
 
-          {/* Search Section */}
-          <section>
-            <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-          </section>
-
-          {/* Semester Tabs */}
+          {/* Year Selection & Subject Dropdown */}
           <section id="subjects" className="space-y-8">
             <Tabs value={activeSemester} onValueChange={(v) => setActiveSemester(v as "3" | "1")} className="w-full">
               <div className="flex flex-col items-center space-y-6">
@@ -127,7 +96,7 @@ const Index = () => {
                   </TabsTrigger>
                 </TabsList>
 
-                {/* Semester Info Badge */}
+                {/* Subject Selection Info */}
                 <div className="text-center space-y-2">
                   <h2 className="text-2xl md:text-3xl font-bold text-foreground">
                     {activeSemester === "3" ? "2nd Year" : "1st Year"} Subjects
@@ -140,46 +109,20 @@ const Index = () => {
                 </div>
               </div>
 
-              <TabsContent value="3" className="mt-8 animate-fade-in">
-                {filteredSemester3.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredSemester3.map((subject, index) => (
-                      <SubjectCard key={subject.id} subject={subject} index={index} />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-16 space-y-4 animate-fade-in">
-                    <div className="text-6xl">🔍</div>
-                    <h3 className="text-xl font-semibold text-foreground">
-                      No subjects found
-                    </h3>
-                    <p className="text-muted-foreground max-w-md mx-auto">
-                      Try searching with different keywords like subject name, code, or
-                      unit topic.
-                    </p>
-                  </div>
-                )}
+              <TabsContent value="3" className="mt-8">
+                <SubjectDropdown
+                  subjects={semester3Subjects}
+                  yearLabel="2nd Year"
+                  isActive={activeSemester === "3"}
+                />
               </TabsContent>
 
-              <TabsContent value="1" className="mt-8 animate-fade-in">
-                {filteredSemester1.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredSemester1.map((subject, index) => (
-                      <SubjectCard key={subject.id} subject={subject} index={index} />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-16 space-y-4 animate-fade-in">
-                    <div className="text-6xl">🔍</div>
-                    <h3 className="text-xl font-semibold text-foreground">
-                      No subjects found
-                    </h3>
-                    <p className="text-muted-foreground max-w-md mx-auto">
-                      Try searching with different keywords like subject name, code, or
-                      unit topic.
-                    </p>
-                  </div>
-                )}
+              <TabsContent value="1" className="mt-8">
+                <SubjectDropdown
+                  subjects={semester1Subjects}
+                  yearLabel="1st Year"
+                  isActive={activeSemester === "1"}
+                />
               </TabsContent>
             </Tabs>
           </section>
