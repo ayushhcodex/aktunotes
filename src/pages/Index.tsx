@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { semester1Subjects, semester3Subjects, Subject } from "@/config/subjectsData";
 import Header from "@/components/Header";
@@ -13,6 +13,18 @@ import { BookOpen, GraduationCap, Sparkles, TrendingUp } from "lucide-react";
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeSemester, setActiveSemester] = useState<"3" | "1">("3");
+
+  // Listen for year selection events from Navigation
+  useEffect(() => {
+    const handleYearSelect = (event: CustomEvent<{ year: "1" | "3" }>) => {
+      setActiveSemester(event.detail.year);
+    };
+
+    window.addEventListener('yearSelect', handleYearSelect as EventListener);
+    return () => {
+      window.removeEventListener('yearSelect', handleYearSelect as EventListener);
+    };
+  }, []);
 
   const filterSubjects = (subjects: Subject[]) => {
     if (!searchQuery.trim()) return subjects;
