@@ -3,7 +3,7 @@ import {
   FolderOpen, BookOpen, ExternalLink,
   Cpu, Binary, Network, Lightbulb, Heart, Code,
   FlaskConical, Cog, CircuitBoard, Calculator, Code2,
-  Leaf, Users, Atom, Zap, Sparkles, GraduationCap, TrendingUp, Lock, ChevronDown
+  Leaf, Users, Atom, Zap, Sparkles, GraduationCap, TrendingUp, Lock, ChevronDown, FileCode
 } from "lucide-react";
 import { Subject } from "@/config/subjectsData";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import {
 import QuizDrawer from "./QuizDrawer";
 import PYQDrawer from "./PYQDrawer";
 import TopicsDrawer from "./TopicsDrawer";
+import PythonProgramsDrawer from "./PythonProgramsDrawer";
 
 interface SubjectDropdownProps {
   subjects: Subject[];
@@ -48,6 +49,7 @@ const SubjectDropdown = ({ subjects, yearLabel, isActive }: SubjectDropdownProps
   const [quizOpen, setQuizOpen] = useState(false);
   const [pyqOpen, setPyqOpen] = useState(false);
   const [topicsOpen, setTopicsOpen] = useState(false);
+  const [programsOpen, setProgramsOpen] = useState(false);
 
   const selectedSubject = subjects.find((s) => s.id === selectedSubjectId);
   const IconComponent = selectedSubject ? iconMap[selectedSubject.icon] || BookOpen : BookOpen;
