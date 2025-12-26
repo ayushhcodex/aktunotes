@@ -149,7 +149,7 @@ const SubjectDropdown = ({ subjects, yearLabel, isActive }: SubjectDropdownProps
             </Button>
 
             {/* CTA Buttons Grid */}
-            <div className="grid grid-cols-3 gap-2">
+            <div className={`grid gap-2 ${selectedSubject.code === "PYTHON" ? "grid-cols-4" : "grid-cols-3"}`}>
               <Button
                 variant="outline"
                 onClick={() => setQuizOpen(true)}
@@ -197,6 +197,24 @@ const SubjectDropdown = ({ subjects, yearLabel, isActive }: SubjectDropdownProps
                 />
                 <span className="text-xs font-medium">Topics</span>
               </Button>
+
+              {/* Python Programs Button - Only for Python subject */}
+              {selectedSubject.code === "PYTHON" && (
+                <Button
+                  variant="outline"
+                  onClick={() => setProgramsOpen(true)}
+                  className="flex-col gap-1 h-auto py-3 rounded-xl border-2 hover:scale-[1.02] transition-all duration-200 group/btn"
+                  style={{
+                    borderColor: `hsl(var(--${selectedSubject.colorClass}) / 0.3)`,
+                  }}
+                >
+                  <FileCode
+                    className="w-5 h-5 transition-colors"
+                    style={{ color: `hsl(var(--${selectedSubject.colorClass}))` }}
+                  />
+                  <span className="text-xs font-medium">Programs</span>
+                </Button>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -208,6 +226,9 @@ const SubjectDropdown = ({ subjects, yearLabel, isActive }: SubjectDropdownProps
           <QuizDrawer isOpen={quizOpen} onClose={() => setQuizOpen(false)} subject={selectedSubject} />
           <PYQDrawer isOpen={pyqOpen} onClose={() => setPyqOpen(false)} subject={selectedSubject} />
           <TopicsDrawer isOpen={topicsOpen} onClose={() => setTopicsOpen(false)} subject={selectedSubject} />
+          {selectedSubject.code === "PYTHON" && (
+            <PythonProgramsDrawer isOpen={programsOpen} onClose={() => setProgramsOpen(false)} />
+          )}
         </>
       )}
     </div>
