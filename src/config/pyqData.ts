@@ -662,6 +662,157 @@ export const pyqData: PYQData = {
       { id: 9, question: "Describe text and binary file modes.", years: ["2023", "2019"], frequency: 2 },
       { id: 10, question: "Explain error handling in file operations.", years: ["2020", "2019"], frequency: 2 },
     ]
+  },
+
+  // ==================== DS - Data Structures ====================
+  "ds": {
+    1: [
+      { id: 1, question: "Explain different types of data structures with examples.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 2, question: "Describe array operations: insertion, deletion, and traversal.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 3, question: "Explain linked list and its types with diagrams.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 4, question: "Write algorithms for insertion and deletion in singly linked list.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 5, question: "Explain doubly linked list with all operations.", years: ["2023", "2020", "2019"], frequency: 3 },
+      { id: 6, question: "Compare array and linked list.", years: ["2022", "2021"], frequency: 2 },
+      { id: 7, question: "Explain circular linked list with applications.", years: ["2023", "2022"], frequency: 2 },
+      { id: 8, question: "Describe time complexity of various data structure operations.", years: ["2021", "2019"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Explain stack and its applications with examples.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 2, question: "Write algorithm for infix to postfix conversion.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 3, question: "Evaluate postfix expression using stack.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Explain queue and its types: circular queue, priority queue.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 5, question: "Describe double-ended queue (Deque) with operations.", years: ["2022", "2020", "2019"], frequency: 3 },
+      { id: 6, question: "Implement stack using array and linked list.", years: ["2023", "2021"], frequency: 2 },
+      { id: 7, question: "Explain recursion and its use in stack.", years: ["2022", "2020"], frequency: 2 },
+      { id: 8, question: "Write algorithm for queue operations.", years: ["2023", "2019"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Explain binary tree and its traversal methods (inorder, preorder, postorder).", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 2, question: "Describe binary search tree with insertion and deletion.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 3, question: "Explain AVL tree and its rotations.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Describe B-tree and B+ tree with examples.", years: ["2023", "2020", "2019"], frequency: 3 },
+      { id: 5, question: "Explain heap and heap sort algorithm.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "Describe threaded binary tree.", years: ["2023", "2022"], frequency: 2 },
+      { id: 7, question: "Explain expression tree with example.", years: ["2021", "2019"], frequency: 2 },
+      { id: 8, question: "Write algorithm for tree traversal using recursion.", years: ["2023", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Explain graph representation: adjacency matrix and adjacency list.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 2, question: "Describe BFS and DFS with algorithms.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 3, question: "Explain Dijkstra's shortest path algorithm.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Describe Prim's and Kruskal's algorithm for MST.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 5, question: "Explain topological sorting with example.", years: ["2022", "2020", "2019"], frequency: 3 },
+      { id: 6, question: "Describe Floyd-Warshall algorithm.", years: ["2023", "2021"], frequency: 2 },
+      { id: 7, question: "Explain spanning tree and its applications.", years: ["2022", "2020"], frequency: 2 },
+      { id: 8, question: "Write algorithm for detecting cycle in a graph.", years: ["2021", "2019"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Explain sorting algorithms: bubble, selection, insertion sort.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 2, question: "Describe quick sort and merge sort with analysis.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 3, question: "Explain hashing techniques and collision resolution.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Describe linear and binary search algorithms.", years: ["2023", "2020", "2019"], frequency: 3 },
+      { id: 5, question: "Explain radix sort and counting sort.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "Compare different sorting algorithms based on time complexity.", years: ["2023", "2022"], frequency: 2 },
+      { id: 7, question: "Describe open addressing and chaining in hashing.", years: ["2021", "2019"], frequency: 2 },
+      { id: 8, question: "Write algorithm for heap sort.", years: ["2023", "2020"], frequency: 2 },
+    ]
+  },
+
+  // ==================== PYTHON - Python Programming ====================
+  "python": {
+    1: [
+      { id: 1, question: "Explain features of Python programming language.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 2, question: "Describe Python data types with examples.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 3, question: "Explain operators in Python with examples.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Write a program to check if a number is prime.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 5, question: "Explain input/output operations in Python.", years: ["2022", "2020", "2019"], frequency: 3 },
+      { id: 6, question: "Describe string operations and methods in Python.", years: ["2023", "2021"], frequency: 2 },
+      { id: 7, question: "Write a program to reverse a string.", years: ["2022", "2020"], frequency: 2 },
+      { id: 8, question: "Explain type conversion in Python.", years: ["2021", "2019"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Explain control flow statements: if, elif, else with examples.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 2, question: "Describe for and while loops with examples.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 3, question: "Write a program to print Fibonacci series.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 4, question: "Explain break, continue, and pass statements.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 5, question: "Write a program to find factorial using loop.", years: ["2023", "2020", "2019"], frequency: 3 },
+      { id: 6, question: "Explain nested loops with pattern printing example.", years: ["2022", "2021"], frequency: 2 },
+      { id: 7, question: "Write a program to check palindrome.", years: ["2023", "2022"], frequency: 2 },
+      { id: 8, question: "Describe range() function with examples.", years: ["2021", "2019"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Explain functions in Python with types and examples.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 2, question: "Describe list and its operations in Python.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 3, question: "Explain tuple and dictionary with operations.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Write a program using recursion (factorial/Fibonacci).", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 5, question: "Explain *args and **kwargs in Python.", years: ["2022", "2020", "2019"], frequency: 3 },
+      { id: 6, question: "Describe lambda functions with examples.", years: ["2023", "2021"], frequency: 2 },
+      { id: 7, question: "Explain list comprehension with examples.", years: ["2022", "2020"], frequency: 2 },
+      { id: 8, question: "Write a program for matrix operations using lists.", years: ["2023", "2019"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Explain classes and objects in Python with examples.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 2, question: "Describe inheritance and its types in Python.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 3, question: "Explain polymorphism with method overriding example.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Describe encapsulation and data hiding in Python.", years: ["2023", "2020", "2019"], frequency: 3 },
+      { id: 5, question: "Explain constructors and destructors.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "Write a program demonstrating multiple inheritance.", years: ["2023", "2022"], frequency: 2 },
+      { id: 7, question: "Describe static and class methods.", years: ["2021", "2019"], frequency: 2 },
+      { id: 8, question: "Explain abstract classes and interfaces in Python.", years: ["2023", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Explain file handling operations in Python.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 2, question: "Describe exception handling with try, except, finally.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 3, question: "Explain NumPy arrays and operations.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Write a program to read and write files.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 5, question: "Describe modules and packages in Python.", years: ["2022", "2020", "2019"], frequency: 3 },
+      { id: 6, question: "Explain regular expressions in Python.", years: ["2023", "2021"], frequency: 2 },
+      { id: 7, question: "Describe Pandas DataFrame operations.", years: ["2022", "2020"], frequency: 2 },
+      { id: 8, question: "Write a program for data visualization using Matplotlib.", years: ["2023", "2019"], frequency: 2 },
+    ]
+  },
+
+  // ==================== LASER - Engineering Physics (Laser) ====================
+  "laser": {
+    1: [
+      { id: 1, question: "Explain interference of light. Derive conditions for constructive and destructive interference.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 2, question: "Describe Young's double slit experiment and derive fringe width formula.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 3, question: "Explain Newton's rings and derive expression for radius of dark/bright rings.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 4, question: "What is diffraction? Explain Fraunhofer diffraction at single slit.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 5, question: "Describe Michelson interferometer and its applications.", years: ["2022", "2019"], frequency: 2 },
+      { id: 6, question: "What is polarization? Explain Malus' law.", years: ["2023", "2022", "2020"], frequency: 3 },
+    ],
+    2: [
+      { id: 1, question: "Explain LASER and derive Einstein's A and B coefficients.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 2, question: "Describe construction and working of Ruby laser.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 3, question: "What is optical fiber? Explain types and applications.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Derive expression for numerical aperture of optical fiber.", years: ["2023", "2020", "2019"], frequency: 3 },
+      { id: 5, question: "Explain He-Ne laser with energy level diagram.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is population inversion? How is it achieved?", years: ["2023", "2022"], frequency: 2 },
+      { id: 7, question: "Describe semiconductor laser.", years: ["2022", "2020"], frequency: 2 },
+      { id: 8, question: "What is holography? Explain its principle.", years: ["2023", "2019"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Explain de Broglie hypothesis and derive wavelength.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 2, question: "Derive Schrödinger's wave equation and discuss its significance.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 3, question: "What is uncertainty principle? Prove it.", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Solve Schrödinger equation for particle in a box.", years: ["2023", "2020", "2019"], frequency: 3 },
+      { id: 5, question: "Describe Compton effect and derive Compton shift.", years: ["2023", "2022", "2020"], frequency: 3 },
+    ],
+    4: [
+      { id: 1, question: "Explain band theory of solids. Distinguish conductors, semiconductors, insulators.", years: ["2023", "2022", "2021", "2020", "2019"], frequency: 5 },
+      { id: 2, question: "Derive expression for Fermi-Dirac distribution.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 3, question: "Describe Hall effect and its applications.", years: ["2023", "2020", "2019"], frequency: 3 },
+      { id: 4, question: "What is superconductivity? Explain BCS theory.", years: ["2023", "2022", "2020"], frequency: 3 },
+      { id: 5, question: "Explain intrinsic and extrinsic semiconductors.", years: ["2022", "2021"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Explain magnetostriction method for producing ultrasonics.", years: ["2023", "2022", "2021", "2020"], frequency: 4 },
+      { id: 2, question: "Describe piezoelectric method for ultrasonic production.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 3, question: "What are applications of ultrasonic waves?", years: ["2022", "2021", "2020"], frequency: 3 },
+      { id: 4, question: "Explain NDT using ultrasonics.", years: ["2023", "2020", "2019"], frequency: 3 },
+      { id: 5, question: "What is SONAR? Explain its principle.", years: ["2023", "2022"], frequency: 2 },
+    ]
   }
 };
 
@@ -1233,6 +1384,157 @@ export const pyq2MarksData: PYQData = {
       { id: 6, question: "What is malloc?", years: ["2023", "2019"], frequency: 2 },
       { id: 7, question: "Define NULL pointer.", years: ["2021", "2020"], frequency: 2 },
       { id: 8, question: "What is fopen?", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // ==================== DS - Data Structures (2 Marks) ====================
+  "ds": {
+    1: [
+      { id: 1, question: "Define data structure.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is an array?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define linked list.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is a node in linked list?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define time complexity.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is space complexity?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Differentiate linear and non-linear data structures.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is a doubly linked list?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define stack.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is queue?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define LIFO.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is FIFO?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define overflow condition.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is underflow condition?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define circular queue.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is priority queue?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define binary tree.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is BST?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define complete binary tree.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is tree traversal?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define height of tree.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is AVL tree?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define heap.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is B-tree?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define graph.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is vertex and edge?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define directed graph.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is adjacency matrix?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define spanning tree.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is BFS?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define DFS.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is MST?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Define sorting.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is searching?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define hashing.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is hash function?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define collision in hashing.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is binary search?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define merge sort.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is quick sort?", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // ==================== PYTHON (2 Marks) ====================
+  "python": {
+    1: [
+      { id: 1, question: "Define Python.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is interpreter?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define variable in Python.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is data type?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define string.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is type casting?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define operator.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is indentation in Python?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define if statement.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is elif?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define for loop.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is while loop?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define break statement.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is continue statement?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define range() function.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is pass statement?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define function.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is list?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define tuple.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is dictionary?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define recursion.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is lambda function?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define *args.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is **kwargs?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define class.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is object?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define inheritance.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is polymorphism?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define encapsulation.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is constructor?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define self keyword.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is __init__ method?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Define file handling.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is exception?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define try block.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is except clause?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define module.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is package?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define NumPy.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is Pandas?", years: ["2022", "2020"], frequency: 2 },
+    ]
+  },
+
+  // ==================== LASER (2 Marks) ====================
+  "laser": {
+    1: [
+      { id: 1, question: "Define interference.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is coherence?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define diffraction.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is polarization?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define Newton's rings.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is fringe width?", years: ["2023", "2019"], frequency: 2 },
+    ],
+    2: [
+      { id: 1, question: "Define laser.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is population inversion?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define stimulated emission.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is optical fiber?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define numerical aperture.", years: ["2022", "2021"], frequency: 2 },
+      { id: 6, question: "What is total internal reflection?", years: ["2023", "2019"], frequency: 2 },
+      { id: 7, question: "Define acceptance angle.", years: ["2021", "2020"], frequency: 2 },
+      { id: 8, question: "What is attenuation?", years: ["2022", "2020"], frequency: 2 },
+    ],
+    3: [
+      { id: 1, question: "Define wave function.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is Schrödinger equation?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define de Broglie wavelength.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is Heisenberg uncertainty principle?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define quantum number.", years: ["2022", "2021"], frequency: 2 },
+    ],
+    4: [
+      { id: 1, question: "Define semiconductor.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is Fermi energy?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define Hall effect.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is superconductivity?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define band gap.", years: ["2022", "2021"], frequency: 2 },
+    ],
+    5: [
+      { id: 1, question: "Define ultrasonic waves.", years: ["2023", "2022", "2021"], frequency: 3 },
+      { id: 2, question: "What is magnetostriction?", years: ["2023", "2022"], frequency: 2 },
+      { id: 3, question: "Define piezoelectric effect.", years: ["2022", "2021"], frequency: 2 },
+      { id: 4, question: "What is SONAR?", years: ["2023", "2020"], frequency: 2 },
+      { id: 5, question: "Define NDT.", years: ["2022", "2021"], frequency: 2 },
     ]
   }
 };
