@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, CheckCircle, XCircle, RotateCcw, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuizQuestion } from "@/config/quizData";
 import { cn } from "@/lib/utils";
+import { saveQuizScore, updateSubjectProgress } from "@/lib/quizService";
 
 interface QuizModalProps {
   isOpen: boolean;
@@ -11,14 +12,28 @@ interface QuizModalProps {
   unitName: string;
   unitTitle: string;
   subjectColor: string;
+  subjectId?: string;
 }
 
-const QuizModal = ({ isOpen, onClose, questions, unitName, unitTitle, subjectColor }: QuizModalProps) => {
+const QuizModal = ({ isOpen, onClose, questions, unitName, unitTitle, subjectColor, subjectId }: QuizModalProps) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [answers, setAnswers] = useState<{ selected: number; correct: boolean }[]>([]);
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [scoreSaved, setScoreSaved] = useState(false);
+
+  // Save score when quiz is completed
+  useEffect(() => {
+    if (quizCompleted && !scoreSaved && subjectId) {
+      const score = answers.filter(a => a.correct).length;
+      saveQuizScore(subjectId, unitName, score, questions.length, 'manual')
+        .then(() => {
+          updateSubjectProgress(subjectId);
+          setScoreSaved(true);
+        });
+    }
+  }, [quizCompleted, scoreSaved, subjectId, answers, unitName, questions.length]);
 
   if (!isOpen) return null;
 
@@ -50,6 +65,7 @@ const QuizModal = ({ isOpen, onClose, questions, unitName, unitTitle, subjectCol
     setShowResult(false);
     setAnswers([]);
     setQuizCompleted(false);
+    setScoreSaved(false);
   };
 
   const handleClose = () => {
