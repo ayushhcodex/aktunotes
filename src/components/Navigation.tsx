@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import UserMenu from "./UserMenu";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,8 +21,7 @@ const Navigation = () => {
           : "bg-background/60 backdrop-blur-sm py-3"
       }`}
     >
-      <div className="container flex items-center justify-between">
-        <div className="w-20" /> {/* Spacer for balance */}
+      <div className="container flex flex-col items-center justify-center">
         <Link to="/" className="flex flex-col items-center group">
           <span 
             className={`font-bold tracking-tight text-foreground transition-all duration-300 ${
@@ -42,9 +40,6 @@ const Navigation = () => {
             Exam-Focused • AI-Powered
           </span>
         </Link>
-        <div className="w-20 flex justify-end">
-          <UserMenu />
-        </div>
       </div>
       {/* Subtle bottom divider */}
       <div 
