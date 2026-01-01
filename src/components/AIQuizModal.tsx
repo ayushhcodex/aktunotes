@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { saveQuizScore, updateSubjectProgress } from "@/lib/quizService";
 
 interface AIQuizQuestion {
   id: number;
@@ -114,6 +115,19 @@ const AIQuizModal = ({
   const [hasStarted, setHasStarted] = useState(false);
   const [rateLimitError, setRateLimitError] = useState<string | null>(null);
   const [remainingQuizzes, setRemainingQuizzes] = useState(MAX_QUIZZES_PER_UNIT);
+  const [scoreSaved, setScoreSaved] = useState(false);
+
+  // Save score when quiz is completed
+  useEffect(() => {
+    if (quizCompleted && !scoreSaved) {
+      const finalScore = answers.filter(a => a.correct).length;
+      saveQuizScore(subjectId, unitName, finalScore, questions.length, 'ai')
+        .then(() => {
+          updateSubjectProgress(subjectId);
+          setScoreSaved(true);
+        });
+    }
+  }, [quizCompleted, scoreSaved, subjectId, unitName, answers, questions.length]);
 
   useEffect(() => {
     if (isOpen) {
@@ -239,6 +253,7 @@ const AIQuizModal = ({
     setShowResult(false);
     setAnswers([]);
     setQuizCompleted(false);
+    setScoreSaved(false);
     generateQuiz();
   };
 
@@ -248,6 +263,7 @@ const AIQuizModal = ({
     setShowResult(false);
     setAnswers([]);
     setQuizCompleted(false);
+    setScoreSaved(false);
     generateQuiz();
   };
 
