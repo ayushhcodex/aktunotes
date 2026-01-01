@@ -102,14 +102,14 @@ const Auth = () => {
               variant: 'destructive'
             });
           }
-        } else {
-          toast({
-            title: 'Account Created!',
-            description: 'Welcome! Your account has been created successfully.'
-          });
-          navigate('/');
+          } else {
+            toast({
+              title: 'Check your email!',
+              description: 'We sent you a verification link. Please check your inbox (and spam folder).'
+            });
+            navigate('/');
+          }
         }
-      }
     } finally {
       setIsSubmitting(false);
     }

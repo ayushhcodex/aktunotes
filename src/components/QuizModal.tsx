@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { X, CheckCircle, XCircle, RotateCcw, Trophy } from "lucide-react";
+import { X, CheckCircle, XCircle, RotateCcw, Trophy, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuizQuestion } from "@/config/quizData";
 import { cn } from "@/lib/utils";
-import { saveQuizScore, updateSubjectProgress } from "@/lib/quizService";
+import { saveQuizScore, updateSubjectProgress, SaveResult } from "@/lib/quizService";
+import { Link } from "react-router-dom";
 
 interface QuizModalProps {
   isOpen: boolean;
@@ -21,19 +22,21 @@ const QuizModal = ({ isOpen, onClose, questions, unitName, unitTitle, subjectCol
   const [showResult, setShowResult] = useState(false);
   const [answers, setAnswers] = useState<{ selected: number; correct: boolean }[]>([]);
   const [quizCompleted, setQuizCompleted] = useState(false);
-  const [scoreSaved, setScoreSaved] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<SaveResult | null>(null);
 
   // Save score when quiz is completed
   useEffect(() => {
-    if (quizCompleted && !scoreSaved && subjectId) {
+    if (quizCompleted && !saveStatus && subjectId) {
       const score = answers.filter(a => a.correct).length;
       saveQuizScore(subjectId, unitName, score, questions.length, 'manual')
-        .then(() => {
-          updateSubjectProgress(subjectId);
-          setScoreSaved(true);
+        .then((result) => {
+          setSaveStatus(result);
+          if (result.saved) {
+            updateSubjectProgress(subjectId);
+          }
         });
     }
-  }, [quizCompleted, scoreSaved, subjectId, answers, unitName, questions.length]);
+  }, [quizCompleted, saveStatus, subjectId, answers, unitName, questions.length]);
 
   if (!isOpen) return null;
 
@@ -65,7 +68,7 @@ const QuizModal = ({ isOpen, onClose, questions, unitName, unitTitle, subjectCol
     setShowResult(false);
     setAnswers([]);
     setQuizCompleted(false);
-    setScoreSaved(false);
+    setSaveStatus(null);
   };
 
   const handleClose = () => {
@@ -204,7 +207,30 @@ const QuizModal = ({ isOpen, onClose, questions, unitName, unitTitle, subjectCol
                  "Keep practicing! 💪"}
               </p>
 
-              {/* Answer Summary */}
+              {/* Save Status Message */}
+              {saveStatus && !saveStatus.saved && (
+                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-4 p-3 bg-muted/30 rounded-lg">
+                  <Info className="w-4 h-4 shrink-0" />
+                  <span>
+                    {saveStatus.reason === 'not_logged_in' ? (
+                      <>
+                        <Link to="/auth" className="text-primary hover:underline font-medium">Login</Link>
+                        {' '}to save your scores!
+                      </>
+                    ) : saveStatus.reason === 'not_verified' ? (
+                      'Please verify your email to save quiz scores.'
+                    ) : (
+                      saveStatus.message
+                    )}
+                  </span>
+                </div>
+              )}
+              {saveStatus?.saved && (
+                <div className="flex items-center justify-center gap-2 text-sm text-green-600 dark:text-green-400 mb-4">
+                  <CheckCircle className="w-4 h-4" />
+                  <span>Score saved!</span>
+                </div>
+              )}
               <div className="text-left bg-muted/30 rounded-xl p-4 mb-6 max-h-48 overflow-y-auto">
                 <p className="font-medium mb-3 text-sm">Answer Summary:</p>
                 <div className="space-y-2">
