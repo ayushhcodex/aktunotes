@@ -1,17 +1,35 @@
 import { supabase } from '@/integrations/supabase/client';
 
+export type SaveResult = {
+  saved: boolean;
+  reason?: 'not_logged_in' | 'not_verified' | 'error';
+  message?: string;
+};
+
 export const saveQuizScore = async (
   subject: string,
   unit: string,
   score: number,
   totalQuestions: number,
   quizType: 'manual' | 'ai' = 'manual'
-) => {
+): Promise<SaveResult> => {
   const { data: { user } } = await supabase.auth.getUser();
   
   if (!user) {
-    // User not logged in, don't save
-    return { saved: false, reason: 'not_logged_in' };
+    return { 
+      saved: false, 
+      reason: 'not_logged_in',
+      message: 'Login to save your scores!'
+    };
+  }
+  
+  // Check if email is verified
+  if (!user.email_confirmed_at) {
+    return { 
+      saved: false, 
+      reason: 'not_verified',
+      message: 'Please verify your email to save quiz scores.'
+    };
   }
   
   const { error } = await supabase
@@ -27,16 +45,17 @@ export const saveQuizScore = async (
   
   if (error) {
     console.error('Failed to save quiz score:', error);
-    return { saved: false, reason: 'error' };
+    return { saved: false, reason: 'error', message: 'Failed to save score.' };
   }
   
   return { saved: true };
 };
 
-export const updateSubjectProgress = async (subject: string) => {
+export const updateSubjectProgress = async (subject: string): Promise<boolean> => {
   const { data: { user } } = await supabase.auth.getUser();
   
-  if (!user) return;
+  // Only update progress for verified users
+  if (!user || !user.email_confirmed_at) return false;
   
   // Check if progress exists
   const { data: existing } = await supabase
@@ -66,4 +85,20 @@ export const updateSubjectProgress = async (subject: string) => {
         topics_viewed: 0
       });
   }
+  
+  return true;
+};
+
+export const canSaveProgress = async (): Promise<{ canSave: boolean; reason?: string }> => {
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  if (!user) {
+    return { canSave: false, reason: 'not_logged_in' };
+  }
+  
+  if (!user.email_confirmed_at) {
+    return { canSave: false, reason: 'not_verified' };
+  }
+  
+  return { canSave: true };
 };

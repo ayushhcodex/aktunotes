@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { User, LogOut, Trophy, Loader2 } from 'lucide-react';
+import { User, LogOut, Trophy, Loader2, AlertCircle, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface Profile {
@@ -19,7 +19,7 @@ interface Profile {
 }
 
 const UserMenu = () => {
-  const { user, loading, signOut } = useAuth();
+  const { user, loading, signOut, isEmailVerified } = useAuth();
   const { toast } = useToast();
   const [profile, setProfile] = useState<Profile | null>(null);
 
@@ -77,12 +77,25 @@ const UserMenu = () => {
           </span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
+      <DropdownMenuContent align="end" className="w-56">
         <div className="px-2 py-1.5 text-sm font-medium">
           {profile?.name || 'User'}
         </div>
         <div className="px-2 py-1 text-xs text-muted-foreground truncate">
           {user.email}
+        </div>
+        <div className="px-2 py-1.5 flex items-center gap-1.5">
+          {isEmailVerified ? (
+            <span className="text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
+              <CheckCircle className="h-3 w-3" />
+              Verified
+            </span>
+          ) : (
+            <span className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
+              <AlertCircle className="h-3 w-3" />
+              Email not verified
+            </span>
+          )}
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>

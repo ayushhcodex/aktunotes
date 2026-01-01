@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import SubjectDropdown from "@/components/SubjectDropdown";
 import Footer from "@/components/Footer";
+import EmailVerificationBanner from "@/components/EmailVerificationBanner";
 import { Helmet } from "react-helmet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen, GraduationCap, Sparkles, TrendingUp } from "lucide-react";
@@ -39,6 +40,9 @@ const Index = () => {
       </Helmet>
 
       <div className="min-h-screen bg-background">
+        {/* Email Verification Banner */}
+        <EmailVerificationBanner />
+        
         {/* Navigation */}
         <Navigation />
         
