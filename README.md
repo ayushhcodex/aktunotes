@@ -1,15 +1,15 @@
 # AKTU Notes & Quiz Platform
 
-## Abstract
+## 
 AKTU Notes & Quiz Platform is a web-based educational application designed to assist students of **Dr. A.P.J. Abdul Kalam Technical University (AKTU)** in accessing structured study notes and practicing concepts through interactive quizzes.  
 The platform focuses on improving learning efficiency, self-assessment, and exam preparation using a modern, responsive web interface.
 
----
+
 
 ## Live URL
 🔗 https://aktunotes.live
 
----
+
 
 ## Objectives
 - To provide organized and easily accessible AKTU study notess    
@@ -17,7 +17,7 @@ The platform focuses on improving learning efficiency, self-assessment, and exam
 - To build a responsive and scalable educational web application
 - To apply modern frontend development tools and practices
 
----
+
 
 ## Features
 - Subject-wise notes for AKTU syllabus
@@ -26,7 +26,7 @@ The platform focuses on improving learning efficiency, self-assessment, and exam
 - Responsive UI for desktop and mobile devices
 - Deployed on cloud infrastructure for high availability
 
----
+
 
 ## System Architecture
 The application follows a **client-side rendered architecture**:
@@ -37,7 +37,7 @@ The application follows a **client-side rendered architecture**:
 - **Deployment:** Vercel
 - **Version Control:** Git & GitHub
 
----
+
 
 ## Technology Stack
 | Component | Technology |
@@ -48,7 +48,7 @@ The application follows a **client-side rendered architecture**:
 | Build Tool | Vite |
 | Hosting | Vercel |
 
----
+
 
 ## Deployment
 The project is deployed using **Vercel** with GitHub integration.
@@ -57,7 +57,7 @@ The project is deployed using **Vercel** with GitHub integration.
 - Automatic builds on push to main branch
 - Live domain configured for production use
 
----
+
 
 ## Project Structure (Overview)
 ├── public/
@@ -70,14 +70,14 @@ The project is deployed using **Vercel** with GitHub integration.
 ├── package.json
 ├── vite.config.ts
 └── README.md
----
+
 
 ## Use Case
 - AKTU students preparing for semester examinations
 - Self-assessment through quiz practice
 - Quick revision of academic topics
 
----
+
 
 ## Future Enhancements
 - Backend integration for user authentication
@@ -85,12 +85,12 @@ The project is deployed using **Vercel** with GitHub integration.
 - Admin panel for content management
 - Performance analytics and usage insights
 
----
+
 
 ## Disclaimer
 This project is an **independent academic project** developed for educational purposes and is **not officially affiliated with AKTU**.
 
----
+
 
 ## Author
 **Name:** Ayush Singh 
