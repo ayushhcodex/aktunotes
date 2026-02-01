@@ -9,6 +9,8 @@
  * Structure: quizData[subjectId][unitId] = Question[]
  */
 
+import { quizDataSem4 } from "./quizDataSem4";
+
 export interface QuizQuestion {
   id: number;
   question: string;
@@ -23,7 +25,7 @@ export interface QuizData {
   };
 }
 
-export const quizData: QuizData = {
+const quizDataBase: QuizData = {
   // ==================== 3RD SEMESTER ====================
   
   // COA - Computer Organization & Architecture
@@ -988,6 +990,9 @@ export const quizData: QuizData = {
     ]
   }
 };
+
+// Merge base quiz data with semester 4 data
+export const quizData: QuizData = { ...quizDataBase, ...quizDataSem4 };
 
 // Helper function to get quiz for a specific subject and unit
 export const getQuiz = (subjectId: string, unitId: number): QuizQuestion[] => {

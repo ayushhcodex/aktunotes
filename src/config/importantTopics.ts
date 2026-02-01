@@ -595,6 +595,281 @@ export const importantTopics: ImportantTopics = {
       "MCB & ELCB",
       "Electrical Safety"
     ]
+  },
+
+  // Mathematics-II (1st Year)
+  "math-2": {
+    1: [
+      "Laplace Transform Definition",
+      "Properties of Laplace Transform",
+      "Laplace Transform of Standard Functions",
+      "First & Second Shifting Theorems",
+      "Laplace Transform of Derivatives"
+    ],
+    2: [
+      "Inverse Laplace Transform",
+      "Partial Fractions Method",
+      "Convolution Theorem",
+      "Application to ODEs",
+      "Heaviside Expansion"
+    ],
+    3: [
+      "Fourier Series Expansion",
+      "Even & Odd Functions",
+      "Half Range Series",
+      "Parseval's Identity",
+      "Harmonic Analysis"
+    ],
+    4: [
+      "Analytic Functions",
+      "Cauchy-Riemann Equations",
+      "Complex Integration",
+      "Cauchy's Integral Formula",
+      "Residue Theorem"
+    ],
+    5: [
+      "Probability Distributions",
+      "Binomial Distribution",
+      "Poisson Distribution",
+      "Normal Distribution",
+      "Curve Fitting"
+    ]
+  },
+
+  // ==================== 4TH SEMESTER (2ND YEAR) ====================
+
+  // Operating System
+  "os": {
+    1: [
+      "Types of Operating Systems",
+      "System Calls",
+      "Operating System Structure",
+      "Kernel Types (Monolithic/Microkernel)",
+      "Virtual Machine Concept"
+    ],
+    2: [
+      "Process States & PCB",
+      "CPU Scheduling Algorithms",
+      "Context Switching",
+      "Threads & Types",
+      "Inter-Process Communication"
+    ],
+    3: [
+      "Critical Section Problem",
+      "Semaphores",
+      "Deadlock Conditions",
+      "Banker's Algorithm",
+      "Deadlock Detection & Recovery"
+    ],
+    4: [
+      "Paging & Segmentation",
+      "Page Replacement Algorithms",
+      "Virtual Memory",
+      "Thrashing",
+      "Memory Allocation Strategies"
+    ],
+    5: [
+      "Disk Scheduling Algorithms",
+      "File System Structure",
+      "File Allocation Methods",
+      "Directory Structure",
+      "RAID Levels"
+    ]
+  },
+
+  // OOPS with Java
+  "oops-java": {
+    1: [
+      "Java Features & JVM Architecture",
+      "Data Types & Variables",
+      "Operators & Control Statements",
+      "OOP Concepts Overview",
+      "Java Program Structure"
+    ],
+    2: [
+      "Classes & Objects",
+      "Constructors & this Keyword",
+      "Inheritance Types",
+      "Method Overloading & Overriding",
+      "super & final Keywords"
+    ],
+    3: [
+      "Packages & Access Modifiers",
+      "Interfaces & Abstract Classes",
+      "Exception Handling",
+      "try-catch-finally",
+      "throw & throws"
+    ],
+    4: [
+      "Multithreading Concepts",
+      "Thread Lifecycle",
+      "Synchronization",
+      "File I/O Streams",
+      "Serialization"
+    ],
+    5: [
+      "AWT & Swing Basics",
+      "Applet Lifecycle",
+      "Event Handling Model",
+      "Layout Managers",
+      "GUI Components"
+    ]
+  },
+
+  // Automata (Theory of Computation)
+  "automata": {
+    1: [
+      "Finite Automata (DFA & NFA)",
+      "NFA to DFA Conversion",
+      "Minimization of DFA",
+      "Regular Languages",
+      "Closure Properties"
+    ],
+    2: [
+      "Regular Expressions",
+      "Conversion (RE to FA)",
+      "Pumping Lemma for Regular",
+      "Regular Grammars",
+      "Arden's Theorem"
+    ],
+    3: [
+      "Context-Free Grammars",
+      "Chomsky Normal Form",
+      "Pushdown Automata",
+      "PDA to CFG Conversion",
+      "Pumping Lemma for CFL"
+    ],
+    4: [
+      "Turing Machine Model",
+      "TM Variants",
+      "Universal Turing Machine",
+      "Church-Turing Thesis",
+      "Multi-tape TM"
+    ],
+    5: [
+      "Decidability & Undecidability",
+      "Halting Problem",
+      "Reducibility",
+      "Time Complexity Classes",
+      "P vs NP Problem"
+    ]
+  },
+
+  // Technical Communication
+  "tech-comm": {
+    1: [
+      "Technical Writing Principles",
+      "Document Planning",
+      "Audience Analysis",
+      "Writing Style & Tone",
+      "Editing & Proofreading"
+    ],
+    2: [
+      "Technical Report Structure",
+      "Proposal Writing",
+      "Research Paper Format",
+      "Documentation Standards",
+      "Citation Methods"
+    ],
+    3: [
+      "Presentation Techniques",
+      "Visual Aid Design",
+      "Body Language",
+      "Voice Modulation",
+      "Handling Q&A"
+    ],
+    4: [
+      "Business Letters",
+      "Email Etiquette",
+      "Memos & Notices",
+      "Minutes of Meeting",
+      "Professional Communication"
+    ],
+    5: [
+      "Group Discussion Skills",
+      "Interview Preparation",
+      "Resume & CV Writing",
+      "SWOT Analysis",
+      "Workplace Communication"
+    ]
+  },
+
+  // Cybersecurity
+  "cybersecurity": {
+    1: [
+      "CIA Triad",
+      "Types of Cyber Attacks",
+      "Security Threats & Vulnerabilities",
+      "Risk Management",
+      "Security Policies"
+    ],
+    2: [
+      "Symmetric Key Cryptography",
+      "Asymmetric Key Cryptography",
+      "DES & AES Algorithms",
+      "RSA Algorithm",
+      "Hash Functions"
+    ],
+    3: [
+      "Firewall Types",
+      "Intrusion Detection Systems",
+      "VPN & Tunneling",
+      "SSL/TLS Protocol",
+      "Network Security Protocols"
+    ],
+    4: [
+      "SQL Injection",
+      "Cross-Site Scripting (XSS)",
+      "CSRF Attacks",
+      "Session Hijacking",
+      "Web Application Security"
+    ],
+    5: [
+      "Security Policies & Standards",
+      "Cyber Law & Ethics",
+      "Digital Forensics Basics",
+      "Incident Response",
+      "IT Act 2000"
+    ]
+  },
+
+  // Mathematics-IV
+  "math-4": {
+    1: [
+      "Numerical Differentiation",
+      "Newton's Forward/Backward Formula",
+      "Numerical Integration",
+      "Simpson's 1/3 & 3/8 Rule",
+      "Trapezoidal Rule"
+    ],
+    2: [
+      "Euler's Method",
+      "Runge-Kutta Methods",
+      "Predictor-Corrector Methods",
+      "Milne's Method",
+      "Solution of ODEs"
+    ],
+    3: [
+      "Mean, Median, Mode",
+      "Standard Deviation",
+      "Correlation Coefficient",
+      "Hypothesis Testing",
+      "Chi-Square Test"
+    ],
+    4: [
+      "Random Variables",
+      "Binomial Distribution",
+      "Poisson Distribution",
+      "Normal Distribution",
+      "Probability Density Function"
+    ],
+    5: [
+      "Linear Regression",
+      "Multiple Regression",
+      "Curve Fitting",
+      "Method of Least Squares",
+      "Correlation Analysis"
+    ]
   }
 };
 

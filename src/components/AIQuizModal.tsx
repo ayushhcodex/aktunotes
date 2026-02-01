@@ -23,7 +23,7 @@ interface AIQuizModalProps {
   unitName: string;
   unitTitle: string;
   subjectColor: string;
-  semester: 1 | 3;
+  semester: 1 | 3 | 4;
 }
 
 const RATE_LIMIT_KEY = "quiz_rate_limit";
