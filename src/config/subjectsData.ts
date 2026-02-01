@@ -31,7 +31,7 @@ export interface Subject {
   colorClass: string;
   gradientClass: string;
   units: Unit[];
-  semester: 1 | 3;
+  semester: 1 | 3 | 4;
 }
 
 // 3rd Semester Subjects
@@ -325,7 +325,144 @@ export const semester1Subjects: Subject[] = [
       { id: 5, name: "Unit V", title: "Electrical Installations", pdfLink: null },
     ],
   },
+  {
+    id: "math-2",
+    code: "MATH-II",
+    name: "Mathematics–II",
+    fullName: "Engineering Mathematics–II",
+    description: "Advanced calculus, Laplace transforms, and series",
+    driveLink: "https://drive.google.com/drive/folders/1LiNRpjFwEV2d8_ONFkHUDfg8cRq44NWM",
+    icon: "Calculator",
+    colorClass: "subject-dstl",
+    gradientClass: "from-teal-100 to-teal-50",
+    semester: 1,
+    units: [
+      { id: 1, name: "Unit I", title: "Laplace Transform", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Inverse Laplace Transform", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Fourier Series", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Complex Variables", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Statistics & Probability", pdfLink: null },
+    ],
+  },
+];
+
+// 4th Semester (2nd Year) Subjects
+export const semester4Subjects: Subject[] = [
+  {
+    id: "os",
+    code: "OS",
+    name: "Operating System",
+    fullName: "Operating Systems",
+    description: "Process management, memory management, and file systems",
+    driveLink: "https://drive.google.com/drive/folders/1hvOu2RpRMK3RcMxY5qQfJNGEfOQQvl83",
+    icon: "Monitor",
+    colorClass: "subject-coa",
+    gradientClass: "from-blue-100 to-blue-50",
+    semester: 4,
+    units: [
+      { id: 1, name: "Unit I", title: "Introduction to OS", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Process Management", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Process Synchronization & Deadlock", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Memory Management", pdfLink: null },
+      { id: 5, name: "Unit V", title: "File & Disk Management", pdfLink: null },
+    ],
+  },
+  {
+    id: "oops-java",
+    code: "JAVA",
+    name: "OOPS with Java",
+    fullName: "Object Oriented Programming with Java",
+    description: "OOP concepts, inheritance, polymorphism using Java",
+    driveLink: "https://drive.google.com/drive/folders/1qzfLJk1cr4zZwXajvNcAH1jV9u48BV0F",
+    icon: "Coffee",
+    colorClass: "subject-python",
+    gradientClass: "from-orange-100 to-orange-50",
+    semester: 4,
+    units: [
+      { id: 1, name: "Unit I", title: "Introduction to Java & OOP", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Classes, Objects & Inheritance", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Packages, Interfaces & Exception", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Multithreading & I/O", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Applets & Event Handling", pdfLink: null },
+    ],
+  },
+  {
+    id: "automata",
+    code: "TOC",
+    name: "Automata",
+    fullName: "Theory of Computation",
+    description: "Finite automata, regular languages, and Turing machines",
+    driveLink: "https://drive.google.com/drive/folders/10JOPAG9BvdxHyUtJdNIfLK632xnW3vXE",
+    icon: "GitBranch",
+    colorClass: "subject-dstl",
+    gradientClass: "from-purple-100 to-purple-50",
+    semester: 4,
+    units: [
+      { id: 1, name: "Unit I", title: "Finite Automata & Regular Languages", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Regular Expressions & Grammars", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Context-Free Grammars & PDA", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Turing Machines", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Undecidability & Complexity", pdfLink: null },
+    ],
+  },
+  {
+    id: "tech-comm",
+    code: "TC",
+    name: "Technical Communication",
+    fullName: "Technical Communication",
+    description: "Technical writing, presentation, and communication skills",
+    driveLink: "https://drive.google.com/drive/folders/1kviE9QXlwAJqKnpE78713ItMKeNVNyTs",
+    icon: "FileText",
+    colorClass: "subject-uhv",
+    gradientClass: "from-amber-100 to-amber-50",
+    semester: 4,
+    units: [
+      { id: 1, name: "Unit I", title: "Technical Writing Fundamentals", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Report Writing", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Presentation Skills", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Business Communication", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Interview & GD Skills", pdfLink: null },
+    ],
+  },
+  {
+    id: "cybersecurity",
+    code: "CS",
+    name: "Cybersecurity",
+    fullName: "Cybersecurity",
+    description: "Network security, cryptography, and cyber threats",
+    driveLink: "https://drive.google.com/drive/folders/1frncwgoZ5oqinco0vZPnec4iHsn17tCl",
+    icon: "Shield",
+    colorClass: "subject-ds",
+    gradientClass: "from-red-100 to-red-50",
+    semester: 4,
+    units: [
+      { id: 1, name: "Unit I", title: "Introduction to Cybersecurity", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Cryptography", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Network Security", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Web Security & Attacks", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Security Policies & Ethics", pdfLink: null },
+    ],
+  },
+  {
+    id: "math-4",
+    code: "MATH-IV",
+    name: "Mathematics–IV",
+    fullName: "Engineering Mathematics–IV",
+    description: "Numerical methods, probability, and statistics",
+    driveLink: "https://drive.google.com/drive/folders/1LiNRpjFwEV2d8_ONFkHUDfg8cRq44NWM",
+    icon: "Calculator",
+    colorClass: "subject-laser",
+    gradientClass: "from-indigo-100 to-indigo-50",
+    semester: 4,
+    units: [
+      { id: 1, name: "Unit I", title: "Numerical Differentiation & Integration", pdfLink: null },
+      { id: 2, name: "Unit II", title: "Solution of ODEs", pdfLink: null },
+      { id: 3, name: "Unit III", title: "Statistical Techniques", pdfLink: null },
+      { id: 4, name: "Unit IV", title: "Probability Distributions", pdfLink: null },
+      { id: 5, name: "Unit V", title: "Correlation & Regression", pdfLink: null },
+    ],
+  },
 ];
 
 // Combined data (for backward compatibility)
-export const subjectsData: Subject[] = [...semester3Subjects, ...semester1Subjects];
+export const subjectsData: Subject[] = [...semester3Subjects, ...semester1Subjects, ...semester4Subjects];

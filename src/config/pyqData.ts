@@ -5,6 +5,8 @@
  * Structure: pyqData[subjectId][unitId] = PYQQuestion[]
  */
 
+import { pyqDataSem4 } from "./pyqDataSem4";
+
 export interface PYQQuestion {
   id: number;
   question: string;
@@ -19,7 +21,7 @@ export interface PYQData {
   };
 }
 
-export const pyqData: PYQData = {
+const pyqDataBase: PYQData = {
   // ==================== 3RD SEMESTER ====================
   
   // COA - Computer Organization & Architecture
@@ -815,6 +817,9 @@ export const pyqData: PYQData = {
     ]
   }
 };
+
+// Merge base PYQ data with semester 4 data
+export const pyqData: PYQData = { ...pyqDataBase, ...pyqDataSem4 };
 
 export const getPYQ = (subjectId: string, unitId: number, marks?: 2 | 7): PYQQuestion[] => {
   const questions = pyqData[subjectId]?.[unitId] || [];
